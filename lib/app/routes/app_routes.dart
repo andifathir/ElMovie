@@ -7,7 +7,6 @@ abstract class Routes {
   static const SplashScreen = _Paths.SplashScreen;
   static const Login = _Paths.Login;
 }
-
 abstract class _Paths {
   _Paths._();
   static const HOME = '/home';

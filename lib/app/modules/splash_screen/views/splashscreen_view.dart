@@ -10,7 +10,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
   @override
   Widget build(BuildContext context) {
     return FlutterSplashScreen.fadeIn(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       onInit: () {
         debugPrint("On Init");
       },
@@ -20,7 +20,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
       childWidget: SizedBox(
         height: 200,
         width: 200,
-        child: Image.asset("assets/Burger_King_logo_(1999).svg.png"),
+        child: Image.asset("assets/logo.png"),
       ),
       onAnimationEnd: () => debugPrint("On Fade In End"),
       nextScreen: const LoginView(),
