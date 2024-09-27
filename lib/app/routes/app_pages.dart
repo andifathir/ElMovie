@@ -1,6 +1,8 @@
 
 import 'package:flutter_application_1/app/modules/splash_screen/bindings/splashscreen_binding.dart';
 import 'package:flutter_application_1/app/modules/splash_screen/views/splashscreen_view.dart';
+import 'package:flutter_application_1/app/modules/login/bindings/login_binding.dart';
+import 'package:flutter_application_1/app/modules/login/views/login_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
@@ -23,6 +25,11 @@ class AppPages {
       name: _Paths.SplashScreen,
       page: () => const SplashScreenView(),
       binding: SplashScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.Login,
+      page: () => const LoginView(),
+      binding: LoginBinding(),
     ),
   ];
 }
