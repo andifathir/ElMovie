@@ -1,3 +1,4 @@
+
 import 'package:flutter_application_1/app/modules/splash_screen/bindings/splashscreen_binding.dart';
 import 'package:flutter_application_1/app/modules/splash_screen/views/splashscreen_view.dart';
 import 'package:get/get.dart';
