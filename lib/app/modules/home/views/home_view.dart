@@ -13,6 +13,7 @@ class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0; // Indeks untuk menandai tab yang dipilih
   File? _profileImage; // File yang akan menyimpan gambar profil yang dipilih
   final ImagePicker _picker = ImagePicker(); // Inisialisasi ImagePicker
+  String _username = "User"; // Variabel untuk menyimpan username
 
   // Fungsi untuk memilih gambar dari galeri
   Future<void> _pickImage() async {
@@ -130,6 +131,38 @@ class _HomeViewState extends State<HomeView> {
                       color: Colors.white, // Set ikon menjadi putih
                     )
                   : null,
+            ),
+            const SizedBox(height: 20),
+            // Tampilkan username di bawah foto profil
+            Text(
+              _username,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
+            const SizedBox(height: 10),
+            // TextField untuk mengedit username
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: TextField(
+                decoration: const InputDecoration(
+                  labelText: 'Edit Username',
+                  labelStyle: TextStyle(color: Colors.white), // Label berwarna putih
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white), // Garis bawah putih
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueAccent), // Garis bawah biru saat fokus
+                  ),
+                ),
+                style: const TextStyle(color: Colors.white), // Teks berwarna putih
+                onChanged: (value) {
+                  setState(() {
+                    _username = value; // Set username saat diubah
+                  });
+                },
+              ),
             ),
             const SizedBox(height: 20),
             // Tombol untuk memilih gambar dari galeri
