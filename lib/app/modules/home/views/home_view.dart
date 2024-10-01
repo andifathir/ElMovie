@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app/modules/profile/views/profile_view.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+// Import halaman ProfileView
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -13,7 +15,6 @@ class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0; // Indeks untuk menandai tab yang dipilih
   File? _profileImage; // File yang akan menyimpan gambar profil yang dipilih
   final ImagePicker _picker = ImagePicker(); // Inisialisasi ImagePicker
-  String _username = "User"; // Variabel untuk menyimpan username
 
   // Fungsi untuk memilih gambar dari galeri
   Future<void> _pickImage() async {
@@ -23,7 +24,6 @@ class _HomeViewState extends State<HomeView> {
       setState(() {
         _profileImage = File(pickedFile.path); // Set gambar yang dipilih
       });
-      debugPrint('Selected image path: ${pickedFile.path}');
     } else {
       debugPrint('No image selected.');
     }
@@ -34,8 +34,6 @@ class _HomeViewState extends State<HomeView> {
     switch (index) {
       case 0:
         return _buildMovieRecommendations();
-      case 1:
-        return _buildProfilePage();
       default:
         return _buildMovieRecommendations();
     }
@@ -57,22 +55,31 @@ class _HomeViewState extends State<HomeView> {
           Padding(
             padding: const EdgeInsets.only(right: 16),
             // Tampilkan gambar profil di kanan AppBar
-            child: CircleAvatar(
-              radius: 20,
-              backgroundImage:
-                  _profileImage != null ? FileImage(_profileImage!) : null,
-              child: _profileImage == null
-                  ? const Icon(
-                      Icons.person,
-                      size: 14,
-                      color: Colors.white, // Set warna ikon menjadi putih
-                    )
-                  : null,
+            child: GestureDetector(
+              onTap: () {
+                // Arahkan ke halaman profil saat gambar profil diklik
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfileView()),
+                );
+              },
+              child: CircleAvatar(
+                radius: 20,
+                backgroundImage:
+                    _profileImage != null ? FileImage(_profileImage!) : null,
+                child: _profileImage == null
+                    ? const Icon(
+                        Icons.person,
+                        size: 14,
+                        color: Colors.white, // Set warna ikon menjadi putih
+                      )
+                    : null,
+              ),
             ),
           ),
         ],
       ),
-      body: ListView(
+          body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
           ListTile(
@@ -201,117 +208,58 @@ class _HomeViewState extends State<HomeView> {
               ],
             ),
           ),
+          ListTile(
+            leading: Container(
+              width: 50,
+              height: 150,
+              child: Transform.scale(
+                scale: 2.6,
+                child: Image.asset(
+                  'assets/Avengers_ Infinity_War.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                Container(
+                  margin:
+                      const EdgeInsets.only(left: 20), // Menambahkan margin ke kiri
+                  child: const Text(
+                    'Avengers: Infinity War',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Container(
+                  margin:
+                      const EdgeInsets.only(left: 20), // Menambahkan margin ke kiri
+                  child: const Text(
+                    'The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
-  // Widget halaman profil
-  Widget _buildProfilePage() {
-    return Scaffold(
-      backgroundColor: Colors.black, // Set background menjadi hitam
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Widget untuk menampilkan gambar profil
-            CircleAvatar(
-              radius: 60,
-              backgroundImage:
-                  _profileImage != null ? FileImage(_profileImage!) : null,
-              child: _profileImage == null
-                  ? const Icon(
-                      Icons.person,
-                      size: 60,
-                      color: Colors.white, // Set ikon menjadi putih
-                    )
-                  : null,
-            ),
-            const SizedBox(height: 20),
-            // Tampilkan username di bawah foto profil
-            Text(
-              _username,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-            const SizedBox(height: 10),
-            // TextField untuk mengedit username
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: TextField(
-                decoration: const InputDecoration(
-                  labelText: 'Edit Username',
-                  labelStyle:
-                      TextStyle(color: Colors.white), // Label berwarna putih
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.white), // Garis bawah putih
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color:
-                            Colors.blueAccent), // Garis bawah biru saat fokus
-                  ),
-                ),
-                style:
-                    const TextStyle(color: Colors.white), // Teks berwarna putih
-                onChanged: (value) {
-                  setState(() {
-                    _username = value; // Set username saat diubah
-                  });
-                },
-              ),
-            ),
-            const SizedBox(height: 20),
-            // Tombol untuk memilih gambar dari galeri
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.black,
-                backgroundColor: Colors.white, // Set warna teks tombol
-              ),
-              onPressed: _pickImage,
-              icon: const Icon(Icons.photo, color: Colors.black),
-              label: const Text('Change Profile Picture',
-                  style: TextStyle(color: Colors.black)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // Fungsi untuk menangani perubahan tab di BottomNavigationBar
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildPage(_selectedIndex), // Menampilkan halaman berdasarkan tab
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black, // Set background navbar menjadi hitam
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie,
-                color: Colors.white), // Set ikon menjadi putih
-            label: 'Movies',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person,
-                color: Colors.white), // Set ikon menjadi putih
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blueAccent, // Warna item yang dipilih
-        unselectedItemColor: Colors.white70, // Warna item yang tidak dipilih
-        onTap: _onItemTapped, // Mengganti halaman saat tab ditekan
-      ),
+      body: _buildPage(_selectedIndex), // Menampilkan halaman berdasarkan tab 
     );
   }
 }
