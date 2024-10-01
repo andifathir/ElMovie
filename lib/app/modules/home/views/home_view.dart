@@ -74,37 +74,132 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
-        children: const [
+        children: [
           ListTile(
-            leading: Icon(Icons.movie,
-                color: Colors.white), // Set ikon menjadi putih
-            title: Text('Inception',
-                style:
-                    TextStyle(color: Colors.white)), // Set teks menjadi putih
-            subtitle: Text('A mind-bending thriller by Christopher Nolan.',
-                style: TextStyle(color: Colors.white70)),
+            leading: Container(
+              width: 50,
+              height: 150,
+              child: Transform.scale(
+                scale: 2.6,
+                child: Image.asset(
+                  'assets/The_Last_Knight.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                Container(
+                  margin:
+                      const EdgeInsets.only(left: 20), // Menambahkan margin ke kiri
+                  child: const Text(
+                    'Transformers: The Last Knight',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Container(
+                  margin:
+                      const EdgeInsets.only(left: 20), // Menambahkan margin ke kiri
+                  child: const Text(
+                    'A deadly threat from Earth\'s history reappears and a hunt for a lost artifact takes place between Autobots and Decepticons, while Optimus Prime encounters his creator in space.',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           ListTile(
-            leading: Icon(Icons.movie, color: Colors.white),
-            title: Text('Interstellar', style: TextStyle(color: Colors.white)),
-            subtitle: Text(
-                'A science fiction epic that takes you beyond the stars.',
-                style: TextStyle(color: Colors.white70)),
+            leading: Container(
+              width: 50,
+              height: 150,
+              child: Transform.scale(
+                scale: 2.6,
+                child: Image.asset(
+                  'assets/SEAL_Team.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                Container(
+                  margin:
+                      const EdgeInsets.only(left: 20), // Menambahkan margin ke kiri
+                  child: const Text(
+                    'SEAL Team',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Container(
+                  margin:
+                      const EdgeInsets.only(left: 20), // Menambahkan margin ke kiri
+                  child: const Text(
+                    'The lives of the elite Navy SEALs as they train, plan, and execute the most dangerous, high-stakes missions the United States of America can ask.',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           ListTile(
-            leading: Icon(Icons.movie, color: Colors.white),
-            title:
-                Text('The Dark Knight', style: TextStyle(color: Colors.white)),
-            subtitle: Text(
-                'The iconic Batman movie directed by Christopher Nolan.',
-                style: TextStyle(color: Colors.white70)),
-          ),
-          ListTile(
-            leading: Icon(Icons.movie, color: Colors.white),
-            title: Text('The Matrix', style: TextStyle(color: Colors.white)),
-            subtitle: Text(
-                'A revolutionary sci-fi film about artificial reality.',
-                style: TextStyle(color: Colors.white70)),
+            leading: Container(
+              width: 50,
+              height: 150,
+              child: Transform.scale(
+                scale: 2.6,
+                child: Image.asset(
+                  'assets/The_Dark_Knight.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                Container(
+                  margin:
+                      const EdgeInsets.only(left: 20), // Menambahkan margin ke kiri
+                  child: const Text(
+                    'The Dark Knight',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Container(
+                  margin:
+                      const EdgeInsets.only(left: 20), // Menambahkan margin ke kiri
+                  child: const Text(
+                    'When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -148,15 +243,20 @@ class _HomeViewState extends State<HomeView> {
               child: TextField(
                 decoration: const InputDecoration(
                   labelText: 'Edit Username',
-                  labelStyle: TextStyle(color: Colors.white), // Label berwarna putih
+                  labelStyle:
+                      TextStyle(color: Colors.white), // Label berwarna putih
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white), // Garis bawah putih
+                    borderSide:
+                        BorderSide(color: Colors.white), // Garis bawah putih
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueAccent), // Garis bawah biru saat fokus
+                    borderSide: BorderSide(
+                        color:
+                            Colors.blueAccent), // Garis bawah biru saat fokus
                   ),
                 ),
-                style: const TextStyle(color: Colors.white), // Teks berwarna putih
+                style:
+                    const TextStyle(color: Colors.white), // Teks berwarna putih
                 onChanged: (value) {
                   setState(() {
                     _username = value; // Set username saat diubah
