@@ -63,33 +63,48 @@ class LoginView extends GetView<LoginController> {
       }
     });
 
-    return FlutterLogin(
-      title: 'ECORP',
-      logo: const AssetImage('assets/images/ecorp-lightblue.png'),
-      onLogin: (data) async {
-        // Handle login
-        String? result = await _authUser(data);
-        if (result == null) {
-          // Navigate to HomeView on successful login
-          debugPrint('Login successful');
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const HomeView(),
-          ));
-        }
-        return result; // This will return error messages if login fails
-      },
-      onSignup: (data) async {
-        // Handle sign up
-        String? result = await _signupUser(data);
-        if (result == null) {
-          // Sign-up successful, do not navigate yet
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const LoginView(),
-          ));
-        }
-        return result; // This will return error messages if sign up fails
-      },
-      onRecoverPassword: _recoverPassword,
+    return Scaffold(
+      backgroundColor: Colors.black, // Set the background color to black
+      body: FlutterLogin(
+        logo: const AssetImage('assets/logo.png'),
+        onLogin: (data) async {
+          // Handle login
+          String? result = await _authUser(data);
+          if (result == null) {
+            // Navigate to HomeView on successful login
+            debugPrint('Login successful');
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const HomeView(),
+            ));
+          }
+          return result; // This will return error messages if login fails
+        },
+        onSignup: (data) async {
+          // Handle sign up
+          String? result = await _signupUser(data);
+          if (result == null) {
+            // Sign-up successful, do not navigate yet
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const LoginView(),
+            ));
+          }
+          return result; // This will return error messages if sign up fails
+        },
+        onRecoverPassword: _recoverPassword,
+        theme: LoginTheme(
+          primaryColor: Colors.black, // Set primary color to white
+          buttonTheme: LoginButtonTheme(
+            backgroundColor: const Color.fromARGB(255, 88, 99, 220), // Button background color
+            highlightColor: Colors.purple, // Button highlight color
+          ),
+          cardTheme: CardTheme(
+            color: const Color.fromARGB(255, 171,124, 230),
+            elevation: 5,
+            margin: const EdgeInsets.only(top: 15),
+            shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(100.0)) // Card background color
+          )
+        ),
+      ),
     );
   }
 }
