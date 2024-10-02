@@ -43,6 +43,7 @@ dependencies:
 
   shared_preferences: ^2.3.2
   image_picker: ^1.1.2
+  provider: ^6.0.5
 
 
 dev_dependencies:
@@ -73,7 +74,10 @@ flutter:
     - assets/SEAL_Team.png
     - assets/The_Last_Knight.png
     - assets/The_Dark_Knight.png
-    # - assets/avengers_infinity.png
+    - assets/Avengers_ Infinity_War.png
+    - assets/BG BELAKANG.png
+    - assets/BG_BELAKANG_HOME.png
+    - assets/BG BELAKANG MENU PROFILE.png
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

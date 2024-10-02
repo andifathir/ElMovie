@@ -1,5 +1,5 @@
 
-import 'package:flutter_application_1/app/modules/profile/bindings/home_binding.dart';
+import 'package:flutter_application_1/app/modules/profile/bindings/profile_binding.dart';
 import 'package:flutter_application_1/app/modules/profile/views/profile_view.dart';
 import 'package:flutter_application_1/app/modules/splash_screen/bindings/splashscreen_binding.dart';
 import 'package:flutter_application_1/app/modules/splash_screen/views/splashscreen_view.dart';
