@@ -28,17 +28,21 @@ class _ProfileViewState extends State<ProfileView> {
     String username = _prefs?.getString('username') ?? "User";
 
     // Update ProfileProvider
-    Provider.of<ProfileProvider>(context, listen: false).updateUsername(username);
+    Provider.of<ProfileProvider>(context, listen: false)
+        .updateUsername(username);
 
     if (imagePath != null) {
-      Provider.of<ProfileProvider>(context, listen: false).updateProfileImage(File(imagePath));
+      Provider.of<ProfileProvider>(context, listen: false)
+          .updateProfileImage(File(imagePath));
     }
   }
 
   Future<void> _saveProfileData() async {
     if (_prefs != null) {
-      await _prefs!.setString('username', Provider.of<ProfileProvider>(context, listen: false).username);
-      File? profileImage = Provider.of<ProfileProvider>(context, listen: false).profileImage;
+      await _prefs!.setString('username',
+          Provider.of<ProfileProvider>(context, listen: false).username);
+      File? profileImage =
+          Provider.of<ProfileProvider>(context, listen: false).profileImage;
       if (profileImage != null) {
         await _prefs!.setString('profileImage', profileImage.path);
       }
@@ -49,7 +53,8 @@ class _ProfileViewState extends State<ProfileView> {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      Provider.of<ProfileProvider>(context, listen: false).updateProfileImage(File(pickedFile.path));
+      Provider.of<ProfileProvider>(context, listen: false)
+          .updateProfileImage(File(pickedFile.path));
     } else {
       debugPrint('No image selected.');
     }
@@ -60,126 +65,125 @@ class _ProfileViewState extends State<ProfileView> {
     final profileProvider = Provider.of<ProfileProvider>(context);
 
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 50),
-              Row(
+      body: SizedBox.expand(
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/BG BELAKANG MENU PROFILE.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage: profileProvider.profileImage != null
-                        ? FileImage(profileProvider.profileImage!)
-                        : null,
-                    child: profileProvider.profileImage == null
-                        ? const Icon(
-                            Icons.person,
-                            size: 30,
-                            color: Colors.white,
-                          )
-                        : null,
-                  ),
-                  const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  const SizedBox(height: 50),
+                  Row(
                     children: [
-                      Text(
-                        profileProvider.username,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: profileProvider.profileImage != null
+                            ? FileImage(profileProvider.profileImage!)
+                            : null,
+                        child: profileProvider.profileImage == null
+                            ? const Icon(
+                                Icons.person,
+                                size: 30,
+                                color: Colors.white,
+                              )
+                            : null,
                       ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        onPressed: () {
-                          _showEditUsernameDialog();
-                        },
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            profileProvider.username,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            onPressed: () {
+                              _showEditUsernameDialog();
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.white,
-                ),
-                onPressed: _pickImage,
-                icon: const Icon(Icons.photo, color: Colors.black),
-                label: const Text('Change Profile Picture', style: TextStyle(color: Colors.black)),
-              ),
-              const SizedBox(height: 30),
-
-              // Teks "Your Arsip"
-              const Text(
-                'Your Arsip',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-
-              // List untuk Booklist, Review, dan History
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildActionButton('Booklist'),
-                  const SizedBox(height: 10),
-                  _buildActionButton('Review'),
-                  const SizedBox(height: 10),
-                  _buildActionButton('History'),
-                ],
-              ),
-              const SizedBox(height: 30), // Spasi sebelum bagian Account
-
-              // Teks "Account"
-              const Text(
-                'Account',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-
-              // Tombol untuk Setting dan Change Password
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildAccountButton('Setting'),
-                  const SizedBox(height: 10),
-                  _buildAccountButton('Change Password'),
-                ],
-              ),
-              const SizedBox(height: 20), // Spasi sebelum tombol Logout
-
-              // Tombol Logout
-              Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.red, // Warna tombol logout
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.white,
+                    ),
+                    onPressed: _pickImage,
+                    icon: const Icon(Icons.photo, color: Colors.black),
+                    label: const Text('Change Profile Picture',
+                        style: TextStyle(color: Colors.black)),
                   ),
-                  onPressed: () {
-                    // Logika logout
-                    debugPrint('Logout button pressed');
-                  },
-                  child: const Text('Logout'),
-                ),
+                  const SizedBox(height: 30),
+                  const Text(
+                    'Your Arsip',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildActionButton('Booklist'),
+                      const SizedBox(height: 10),
+                      _buildActionButton('Review'),
+                      const SizedBox(height: 10),
+                      _buildActionButton('History'),
+                    ],
+                  ),
+                  const SizedBox(height: 30),
+                  const Text(
+                    'Account',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildAccountButton('Setting'),
+                      const SizedBox(height: 10),
+                      _buildAccountButton('Change Password'),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.red,
+                      ),
+                      onPressed: () {
+                        debugPrint('Logout button pressed');
+                      },
+                      child: const Text('Logout'),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -187,7 +191,8 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   void _showEditUsernameDialog() {
-    final TextEditingController controller = TextEditingController(text: Provider.of<ProfileProvider>(context, listen: false).username);
+    final TextEditingController controller = TextEditingController(
+        text: Provider.of<ProfileProvider>(context, listen: false).username);
 
     showDialog(
       context: context,
@@ -207,7 +212,8 @@ class _ProfileViewState extends State<ProfileView> {
             ),
             TextButton(
               onPressed: () {
-                Provider.of<ProfileProvider>(context, listen: false).updateUsername(controller.text);
+                Provider.of<ProfileProvider>(context, listen: false)
+                    .updateUsername(controller.text);
                 Navigator.of(context).pop();
               },
               child: const Text('Save'),
