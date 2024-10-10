@@ -1,4 +1,4 @@
-name: flutter_application_1
+name: ElMovie
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -75,9 +75,9 @@ flutter:
     - assets/The_Last_Knight.png
     - assets/The_Dark_Knight.png
     - assets/Avengers_ Infinity_War.png
-    - assets/BG BELAKANG.png
+    - assets/BG_BELAKANG.png
     - assets/BG_BELAKANG_HOME.png
-    - assets/BG BELAKANG MENU PROFILE.png
+    - assets/BG_BELAKANG_MENU_PROFILE.png
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

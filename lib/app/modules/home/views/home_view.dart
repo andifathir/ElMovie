@@ -12,8 +12,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  int _selectedIndex = 0;
-  final ImagePicker _picker = ImagePicker();
+  final int _selectedIndex = 0;
 
   Widget _buildPage(int index) {
     switch (index) {
@@ -71,16 +70,16 @@ class _HomeViewState extends State<HomeView> {
         children: [
           // Movie recommendations list items
           _buildMovieTile(
-              'assets/The_Last_Knight.png', 'Transformers: The Last Knight', 
+              'assets/The_Last_Knight.png',
+              'Transformers: The Last Knight',
               'A deadly threat from Earth\'s history reappears and a hunt for a lost artifact takes place between Autobots and Decepticons, while Optimus Prime encounters his creator in space.'),
-          _buildMovieTile(
-              'assets/SEAL_Team.png', 'SEAL Team', 
+          _buildMovieTile('assets/SEAL_Team.png', 'SEAL Team',
               'The lives of the elite Navy SEALs as they train, plan, and execute the most dangerous, high-stakes missions the United States of America can ask.'),
-          _buildMovieTile(
-              'assets/The_Dark_Knight.png', 'The Dark Knight', 
+          _buildMovieTile('assets/The_Dark_Knight.png', 'The Dark Knight',
               'When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.'),
           _buildMovieTile(
-              'assets/Avengers_ Infinity_War.png', 'Avengers: Infinity War', 
+              'assets/Avengers_ Infinity_War.png',
+              'Avengers: Infinity War',
               'The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.'),
         ],
       ),
