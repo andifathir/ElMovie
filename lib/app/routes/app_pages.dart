@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/login/controllers/login_controller.dart';
 
 part 'app_routes.dart';
 
@@ -31,7 +32,9 @@ class AppPages {
     GetPage(
       name: _Paths.Login,
       page: () => const LoginView(),
-      binding: LoginBinding(),
+      binding: LoginBinding((){
+        Get.lazyPut<LoginController>(() => LoginController());
+      }),
     ),
     GetPage(
       name: _Paths.Profile,

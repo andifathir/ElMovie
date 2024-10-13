@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app/modules/login/controllers/login_controller.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -15,8 +16,11 @@ void main() {
         title: "Application",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
+        debugShowCheckedModeBanner: false,
+        initialBinding: BindingsBuilder(() {
+          Get.put(LoginController());
+        }),
       ),
     ),
   );
 }
-
