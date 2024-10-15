@@ -1,4 +1,5 @@
 import 'package:ElMovie/app/data/services/http_controller.dart';
+import 'package:ElMovie/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:ElMovie/app/modules/profile/views/profile_view.dart';
 import 'package:ElMovie/app/modules/profile/providers/profile_provider.dart';
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
-  
+
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -91,11 +92,14 @@ class _HomeViewState extends State<HomeView> {
                     ],
                   ),
                   leading: movie.thumbnail.isNotEmpty
-                      ? Image.network(movie.thumbnail, width: 50, fit: BoxFit.cover)
-                      : SizedBox(width: 50), // Placeholder for missing thumbnail
+                      ? Image.network(movie.thumbnail,
+                          width: 50, fit: BoxFit.cover)
+                      : SizedBox(
+                          width: 50), // Placeholder for missing thumbnail
                   onTap: () {
                     // Handle navigation to movie detail page, if needed
                     // Get.to(() => MovieDetailView(movie: movie));
+                    Get.toNamed(Routes.MOVIE_DETAILS, arguments: movie);
                   },
                 ),
               );
@@ -111,8 +115,6 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
-
-  
 
   @override
   Widget build(BuildContext context) {

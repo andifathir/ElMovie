@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class MovieController extends GetxController {
-  var movies = <Welcome>[].obs; // Observable list of Movie objects
+  var movies = <Movie>[].obs; // Observable list of Movie objects
   var isLoading = true.obs; // Observable loading state
 
   Future<void> fetchMovies() async {
@@ -22,7 +22,8 @@ class MovieController extends GetxController {
       if (response.statusCode == 200) {
         final List<dynamic> jsonList = json.decode(response.body);
         // Limit to only the first 10 movies
-        movies.value = jsonList.take(10).map((json) => Welcome.fromJson(json)).toList();
+        movies.value =
+            jsonList.take(5).map((json) => Movie.fromJson(json)).toList();
       } else {
         throw Exception('Failed to load movie data');
       }
@@ -33,4 +34,3 @@ class MovieController extends GetxController {
     }
   }
 }
-
