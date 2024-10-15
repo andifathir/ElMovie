@@ -23,7 +23,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
         child: Image.asset("assets/logo.png"),
       ),
       onAnimationEnd: () => debugPrint("On Fade In End"),
-      nextScreen: const LoginView(),
+      nextScreen: LoginView(),
     );
   }
 }
