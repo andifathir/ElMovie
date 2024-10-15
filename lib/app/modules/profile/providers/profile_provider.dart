@@ -26,7 +26,7 @@ class ProfileProvider with ChangeNotifier {
     notifyListeners(); // Notifikasi listener setelah data diload
   }
 
-    // Update profile image menggunakan ImagePicker
+  // Update profile image menggunakan ImagePicker
   Future<void> pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -42,14 +42,16 @@ class ProfileProvider with ChangeNotifier {
   Future<void> updateProfileImage(File image) async {
     _profileImage = image;
     notifyListeners();
-    await _prefs?.setString('profileImage', _profileImage!.path); // Simpan path ke SharedPreferences
+    await _prefs?.setString('profileImage',
+        _profileImage!.path); // Simpan path ke SharedPreferences
   }
 
   // Update username
   Future<void> updateUsername(String newUsername) async {
     _username = newUsername;
     notifyListeners();
-    await _prefs?.setString('username', _username); // Simpan username ke SharedPreferences
+    await _prefs?.setString(
+        'username', _username); // Simpan username ke SharedPreferences
   }
 
   Future<void> saveProfileData() async {

@@ -18,7 +18,8 @@ class LoginView extends GetView<LoginController> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/BG BELAKANG.png'), // Path to your background image
+            image: AssetImage(
+                'assets/BG BELAKANG.png'), // Path to your background image
             fit: BoxFit.cover, // Ensure the image covers the entire background
           ),
         ),
@@ -47,13 +48,17 @@ class LoginView extends GetView<LoginController> {
             }
             return result; // This will return error messages if sign up fails
           },
-          onRecoverPassword: controller.recoverPassword, // Panggil fungsi recoverPassword dari controller
+          onRecoverPassword: controller
+              .recoverPassword, // Panggil fungsi recoverPassword dari controller
           theme: LoginTheme(
             primaryColor: Colors.black, // Make the primary color transparent
-            pageColorLight: Colors.transparent, // Make the page color transparent
-            pageColorDark: Colors.transparent, // Make the page color transparent
+            pageColorLight:
+                Colors.transparent, // Make the page color transparent
+            pageColorDark:
+                Colors.transparent, // Make the page color transparent
             buttonTheme: const LoginButtonTheme(
-              backgroundColor: Color.fromARGB(255, 88, 99, 220), // Button background color
+              backgroundColor:
+                  Color.fromARGB(255, 88, 99, 220), // Button background color
               highlightColor: Colors.purple, // Button highlight color
             ),
             cardTheme: CardTheme(
