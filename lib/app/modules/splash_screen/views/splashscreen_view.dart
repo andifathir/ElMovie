@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
-import 'package:flutter_application_1/app/modules/login/views/login_view.dart';
+import 'package:ElMovie/app/modules/login/views/login_view.dart';
 import 'package:get/get.dart';
 import '../controllers/splashscreen_controller.dart';
 
@@ -23,7 +23,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
         child: Image.asset("assets/logo.png"),
       ),
       onAnimationEnd: () => debugPrint("On Fade In End"),
-      nextScreen: const LoginView(),
+      nextScreen: LoginView(),
     );
   }
 }

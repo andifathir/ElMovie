@@ -13,7 +13,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
       ],
       child: GetMaterialApp(
-        title: "Application",
+        title: "ELMOVIE",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
         debugShowCheckedModeBanner: false,
