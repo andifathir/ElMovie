@@ -1,10 +1,10 @@
-
-import 'package:flutter_application_1/app/modules/profile/bindings/profile_binding.dart';
-import 'package:flutter_application_1/app/modules/profile/views/profile_view.dart';
-import 'package:flutter_application_1/app/modules/splash_screen/bindings/splashscreen_binding.dart';
-import 'package:flutter_application_1/app/modules/splash_screen/views/splashscreen_view.dart';
-import 'package:flutter_application_1/app/modules/login/bindings/login_binding.dart';
-import 'package:flutter_application_1/app/modules/login/views/login_view.dart';
+import 'package:ElMovie/app/modules/navbar/bindings/navbar_binding.dart';
+import 'package:ElMovie/app/modules/profile/bindings/profile_binding.dart';
+import 'package:ElMovie/app/modules/profile/views/profile_view.dart';
+import 'package:ElMovie/app/modules/splash_screen/bindings/splashscreen_binding.dart';
+import 'package:ElMovie/app/modules/splash_screen/views/splashscreen_view.dart';
+import 'package:ElMovie/app/modules/login/bindings/login_binding.dart';
+import 'package:ElMovie/app/modules/login/views/login_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
@@ -24,10 +24,12 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.SplashScreen,
-      page: () => const SplashScreenView(),
-      binding: SplashScreenBinding(),
-    ),
+        name: _Paths.SplashScreen,
+        page: () => const SplashScreenView(),
+        bindings: [
+          HomeBinding(),
+          NavbarBinding(),
+        ]),
     GetPage(
       name: _Paths.Login,
       page: () => const LoginView(),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/app/modules/profile/views/profile_view.dart';
-import 'package:flutter_application_1/app/modules/profile/providers/profile_provider.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:ElMovie/app/modules/profile/views/profile_view.dart';
+import 'package:ElMovie/app/modules/profile/providers/profile_provider.dart';
 import 'package:provider/provider.dart'; // Import Provider
 
 class HomeView extends StatefulWidget {

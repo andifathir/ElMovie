@@ -1,5 +1,5 @@
+import 'package:ElMovie/app/modules/navbar/views/navbar_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/app/modules/home/views/home_view.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -80,7 +80,7 @@ class LoginView extends GetView<LoginController> {
             if (result == null) {
               debugPrint('Login successful');
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => const HomeView(),
+                builder: (context) => const NavbarView(),
               ));
             }
             return result;
