@@ -1,7 +1,8 @@
+import 'package:ElMovie/app/modules/movie/bindings/movie_binding.dart';
+import 'package:ElMovie/app/modules/movie/views/movie_view.dart';
 import 'package:ElMovie/app/modules/navbar/bindings/navbar_binding.dart';
 import 'package:ElMovie/app/modules/profile/bindings/profile_binding.dart';
 import 'package:ElMovie/app/modules/profile/views/profile_view.dart';
-import 'package:ElMovie/app/modules/splash_screen/bindings/splashscreen_binding.dart';
 import 'package:ElMovie/app/modules/splash_screen/views/splashscreen_view.dart';
 import 'package:ElMovie/app/modules/login/bindings/login_binding.dart';
 import 'package:ElMovie/app/modules/login/views/login_view.dart';
@@ -39,6 +40,11 @@ class AppPages {
       name: _Paths.Profile,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.MOVIE,
+      page: () => MovieView(),
+      binding: MovieBinding(),
     ),
   ];
 }

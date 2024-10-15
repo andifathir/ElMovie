@@ -7,6 +7,7 @@ abstract class Routes {
   static const SplashScreen = _Paths.SplashScreen;
   static const Login = _Paths.Login;
   static const Profile = _Paths.Profile;
+  static const MOVIE = _Paths.MOVIE;
 }
 abstract class _Paths {
   _Paths._();
@@ -14,4 +15,5 @@ abstract class _Paths {
   static const SplashScreen = '/SplashScreen';
   static const Login = '/Login';
   static const Profile = '/Profile';
+  static const MOVIE = '/movie';
 }

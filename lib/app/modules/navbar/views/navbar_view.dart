@@ -49,7 +49,7 @@ class MinimalExample extends StatelessWidget {
         tabs: _tabs(),
         navBarBuilder: (navBarConfig) => Style9BottomNavBar(
           navBarConfig: navBarConfig,
-          navBarDecoration: NavBarDecoration(color: Colors.transparent),
+          navBarDecoration: NavBarDecoration(color: Colors.black),
         ),
         navBarOverlap: NavBarOverlap.full(),
       );
