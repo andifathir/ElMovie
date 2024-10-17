@@ -1,4 +1,6 @@
 
+import 'package:flutter_application_1/app/modules/movie_detail/bindings/movie_detail_binding.dart';
+import 'package:flutter_application_1/app/modules/movie_detail/view/movie_detail_view.dart';
 import 'package:flutter_application_1/app/modules/profile/bindings/profile_binding.dart';
 import 'package:flutter_application_1/app/modules/profile/views/profile_view.dart';
 import 'package:flutter_application_1/app/modules/splash_screen/bindings/splashscreen_binding.dart';
@@ -10,6 +12,8 @@ import 'package:get/get.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/controllers/login_controller.dart';
+import '../modules/movie_detail/view/movie_detail_web_view.dart';
+
 
 part 'app_routes.dart';
 
@@ -41,5 +45,16 @@ class AppPages {
       page: () => const ProfileView(),
       binding: ProfileBinding(),
     ),
+    GetPage(
+      name: _Paths.MOVIE_DETAILS,
+      page: () => MovieDetailView(movie: Get.arguments),
+      binding: MovieDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.MOVIE_DETAILS_WEBVIEW,
+      page: () => MovieDetailWebView(movie: Get.arguments),
+      binding: MovieDetailBinding(),
+    )
+   
   ];
 }
