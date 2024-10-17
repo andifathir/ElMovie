@@ -10,10 +10,10 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()), // Provider untuk Profile
       ],
       child: GetMaterialApp(
-        title: "Application",
+        title: "Elmovie",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
         debugShowCheckedModeBanner: false,

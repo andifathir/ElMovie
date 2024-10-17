@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app/modules/login/views/login_view.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import '../../../routes/app_pages.dart';
 import '../providers/profile_provider.dart'; // Pastikan path ini benar
 
 class ProfileView extends StatelessWidget {
@@ -14,7 +17,8 @@ class ProfileView extends StatelessWidget {
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/BG BELAKANG MENU PROFILE.png'), // Pastikan path gambar benar
+                  image: AssetImage(
+                      'assets/BG BELAKANG MENU PROFILE.png'), // Pastikan path gambar benar
                   fit: BoxFit.cover,
                 ),
               ),
@@ -29,9 +33,10 @@ class ProfileView extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 30,
-                            backgroundImage: profileProvider.profileImage != null
-                                ? FileImage(profileProvider.profileImage!)
-                                : null,
+                            backgroundImage:
+                                profileProvider.profileImage != null
+                                    ? FileImage(profileProvider.profileImage!)
+                                    : null,
                             child: profileProvider.profileImage == null
                                 ? const Icon(
                                     Icons.person,
@@ -58,7 +63,8 @@ class ProfileView extends StatelessWidget {
                                   size: 20,
                                 ),
                                 onPressed: () {
-                                  _showEditUsernameDialog(context, profileProvider);
+                                  _showEditUsernameDialog(
+                                      context, profileProvider);
                                 },
                               ),
                             ],
@@ -123,7 +129,9 @@ class ProfileView extends StatelessWidget {
                             backgroundColor: Colors.red,
                           ),
                           onPressed: () {
-                            debugPrint('Logout button pressed');
+                            Navigator.of(context)
+                                .pop();
+                            Get.offAll(() => const LoginView()); // Panggil fungsi logout dari ProfileProvider
                           },
                           child: const Text('Logout'),
                         ),

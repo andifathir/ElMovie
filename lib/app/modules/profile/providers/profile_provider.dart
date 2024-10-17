@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,14 +27,14 @@ class ProfileProvider with ChangeNotifier {
     notifyListeners(); // Notifikasi listener setelah data diload
   }
 
-    // Update profile image menggunakan ImagePicker
+  // Update profile image menggunakan ImagePicker
   Future<void> pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       _profileImage = File(pickedFile.path);
-      await _prefs?.setString('profileImage', _profileImage!.path);
+      await saveProfileData();
       notifyListeners(); // Update setelah memilih gambar
     }
   }
@@ -42,14 +43,16 @@ class ProfileProvider with ChangeNotifier {
   Future<void> updateProfileImage(File image) async {
     _profileImage = image;
     notifyListeners();
-    await _prefs?.setString('profileImage', _profileImage!.path); // Simpan path ke SharedPreferences
+    await _prefs?.setString('profileImage',
+        _profileImage!.path); // Simpan path ke SharedPreferences
   }
 
   // Update username
   Future<void> updateUsername(String newUsername) async {
     _username = newUsername;
+    await _prefs?.setString(
+        'username', _username); // Simpan username ke SharedPreferences
     notifyListeners();
-    await _prefs?.setString('username', _username); // Simpan username ke SharedPreferences
   }
 
   Future<void> saveProfileData() async {

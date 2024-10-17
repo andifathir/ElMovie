@@ -49,4 +49,13 @@ class ProfileController with ChangeNotifier {
     username = newUsername;
     notifyListeners();
   }
+
+   // Fungsi untuk logout
+  Future<void> logout(BuildContext context) async {
+    // Hapus data dari SharedPreferences
+    await _prefs?.clear();
+    
+    // Arahkan pengguna ke halaman login
+    Navigator.of(context).pushReplacementNamed('/login'); // Pastikan rute '/login' sudah terdaftar
+  }
 }
