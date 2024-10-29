@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 class AddEditMovieListView extends StatefulWidget {
   final String? id;
   final String? judul;
   final String? deskripsi;
-  final DateTime? tanggal;
+  final String? tanggal; // Ubah tipe data tanggal menjadi String
 
   const AddEditMovieListView({Key? key, this.id, this.judul, this.deskripsi, this.tanggal}) : super(key: key);
 
@@ -18,14 +17,14 @@ class _AddEditMovieListViewState extends State<AddEditMovieListView> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   late String judul;
   late String deskripsi;
-  late DateTime tanggal;
+  late String tanggal; // Ubah tipe data tanggal menjadi String
 
   @override
   void initState() {
     super.initState();
     judul = widget.judul ?? '';
     deskripsi = widget.deskripsi ?? '';
-    tanggal = widget.tanggal ?? DateTime.now();
+    tanggal = widget.tanggal ?? DateTime.now().toIso8601String(); // Mengonversi ke string ISO
   }
 
   Future<void> saveCatatan() async {
@@ -33,13 +32,13 @@ class _AddEditMovieListViewState extends State<AddEditMovieListView> {
       await firestore.collection('catatan').add({
         'judul': judul,
         'deskripsi': deskripsi,
-        'tanggal': Timestamp.fromDate(tanggal),
+        'tanggal': tanggal, // Simpan tanggal sebagai string
       });
     } else {
       await firestore.collection('catatan').doc(widget.id).update({
         'judul': judul,
         'deskripsi': deskripsi,
-        'tanggal': Timestamp.fromDate(tanggal),
+        'tanggal': tanggal, // Simpan tanggal sebagai string
       });
     }
     Navigator.of(context).pop();
@@ -71,22 +70,23 @@ class _AddEditMovieListViewState extends State<AddEditMovieListView> {
             ),
             GestureDetector(
               onTap: () async {
+                DateTime currentDate = DateTime.parse(tanggal);
                 final DateTime? picked = await showDatePicker(
                   context: context,
-                  initialDate: tanggal,
+                  initialDate: currentDate,
                   firstDate: DateTime(2000),
                   lastDate: DateTime(2101),
                 );
-                if (picked != null && picked != tanggal) {
+                if (picked != null && picked != currentDate) {
                   setState(() {
-                    tanggal = picked;
+                    tanggal = picked.toIso8601String(); // Simpan dalam format string ISO
                   });
                 }
               },
               child: AbsorbPointer(
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Tanggal: ${tanggal.toLocal()}'.split(' ')[0],
+                    hintText: 'Tanggal: ${DateTime.parse(tanggal).toLocal()}'.split(' ')[0], // Tampilkan dalam format tanggal
                   ),
                 ),
               ),

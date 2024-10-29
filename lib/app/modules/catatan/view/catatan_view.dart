@@ -256,6 +256,7 @@ class _CatatanViewState extends State<CatatanView> {
                           const PopupMenuItem<String>(
                             value: 'edit',
                             child: Text('Edit'),
+                            
                           ),
                           const PopupMenuItem<String>(
                             value: 'delete',
