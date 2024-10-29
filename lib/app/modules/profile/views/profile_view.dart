@@ -1,11 +1,13 @@
+import 'package:ElMovie/app/modules/login/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../login/views/login_view.dart';
 import '../providers/profile_provider.dart';
 import 'package:get/get.dart'; // Import Get package for navigation
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({super.key});
+  ProfileView({super.key});
+
+  final AuthController _authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +199,8 @@ class ProfileView extends StatelessWidget {
               onPressed: () {
                 // Navigate to the login screen
                 Navigator.of(context).pop(); // Close the dialog
-                Get.offAll(() => const LoginView()); // Navigate to login
+                // Get.offAll(() => const LoginView()); // Navigate to login
+                _authController.logout();
               },
               child: const Text('Logout'),
             ),
