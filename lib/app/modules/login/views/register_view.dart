@@ -9,7 +9,6 @@ class RegisterView extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
