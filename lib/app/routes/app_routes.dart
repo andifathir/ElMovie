@@ -10,6 +10,7 @@ abstract class Routes {
   static const MOVIE = _Paths.MOVIE;
   static const MOVIE_DETAILS = _Paths.MOVIE_DETAILS;
   static const MOVIE_DETAILS_WEBVIEW = _Paths.MOVIE_DETAILS_WEBVIEW;
+  static const CatatanView = _Paths.Catatan;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const MOVIE = '/movie';
   static const MOVIE_DETAILS = '/movie_details';
   static const MOVIE_DETAILS_WEBVIEW = '/movie_details_webview';
+  static const Catatan = '/CatatanView';
 }

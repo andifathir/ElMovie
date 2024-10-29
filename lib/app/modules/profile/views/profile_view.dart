@@ -17,7 +17,7 @@ class ProfileView extends StatelessWidget {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                      'assets/BG BELAKANG MENU PROFILE.png'), // Ensure the image path is correct
+                      'assets/BG_BELAKANG_MENU_PROFILE.png'), // Ensure the image path is correct
                   fit: BoxFit.cover,
                 ),
               ),
