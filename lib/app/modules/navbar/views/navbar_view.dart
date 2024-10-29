@@ -19,7 +19,7 @@ class MinimalExample extends StatelessWidget {
 
   List<PersistentTabConfig> _tabs() => [
         PersistentTabConfig(
-          screen: const HomeView(),
+          screen: HomeView(),
           item: ItemConfig(
             activeForegroundColor: Colors.white,
             inactiveBackgroundColor: Colors.white,
@@ -28,14 +28,14 @@ class MinimalExample extends StatelessWidget {
           ),
         ),
         PersistentTabConfig(
-          screen: const HomeView(),
+          screen: HomeView(),
           item: ItemConfig(
             icon: const Icon(Icons.message),
             title: "Messages",
           ),
         ),
         PersistentTabConfig(
-          screen: const HomeView(),
+          screen: HomeView(),
           item: ItemConfig(
             icon: const Icon(Icons.settings),
             title: "Settings",

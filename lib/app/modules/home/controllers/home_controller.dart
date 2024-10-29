@@ -1,23 +1,20 @@
+import 'package:ElMovie/app/data/models/movie.dart';
+import 'package:ElMovie/app/data/services/http_controller.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  final MovieController movieController = Get.put(MovieController());
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    fetchMovies();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void fetchMovies() {
+    movieController.fetchMovies();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  bool get isLoading => movieController.isLoading.value;
+  List<Movie> get movies => movieController.movies;
 }
