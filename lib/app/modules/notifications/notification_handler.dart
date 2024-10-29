@@ -6,71 +6,61 @@ class NotificationHandler {
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  NotificationHandler() {
+    initialize();
+  }
+
   void initialize() async {
-    // Initialize local notifications
+    // Local Notification Initialization Settings for Android
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
     const InitializationSettings initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid);
-    await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-    // Request permissions for iOS
+    await _flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse response) async {
+        // Handle notification tap response here if needed
+      },
+    );
+
+    // Request notification permissions for iOS
     await _firebaseMessaging.requestPermission();
 
-    // Set up listeners
-    FirebaseMessaging.onMessage.listen(_onMessageHandler);
-    FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenedAppHandler);
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    // Foreground notification listener
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      showNotification(
+        message.notification?.title,
+        message.notification?.body,
+      );
+    });
+
+    // Notification on app launch from a terminated state
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      showNotification(
+        message.notification?.title,
+        message.notification?.body,
+      );
+    });
   }
 
-  Future<void> _onMessageHandler(RemoteMessage message) async {
-    _showNotification(message.notification?.title, message.notification?.body);
-  }
-
-  Future<void> _onMessageOpenedAppHandler(RemoteMessage message) async {
-    _showNotification(message.notification?.title, message.notification?.body);
-  }
-
-  static Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    // Show notification for background messages
-    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
-
-    const AndroidNotificationDetails androidDetails =
+  Future<void> showNotification(String? title, String? body) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      'channel_id',
-      'channel_name',
+      'your_channel_id',
+      'your_channel_name',
       importance: Importance.max,
       priority: Priority.high,
+      showWhen: true,
     );
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidDetails);
-
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      message.notification?.title,
-      message.notification?.body,
-      notificationDetails,
-    );
-  }
-
-  Future<void> _showNotification(String? title, String? body) async {
-    const AndroidNotificationDetails androidDetails =
-        AndroidNotificationDetails(
-      'channel_id',
-      'channel_name',
-      importance: Importance.max,
-      priority: Priority.high,
-    );
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidDetails);
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
 
     await _flutterLocalNotificationsPlugin.show(
       0,
       title,
       body,
-      notificationDetails,
+      platformChannelSpecifics,
     );
   }
 }

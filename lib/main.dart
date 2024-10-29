@@ -1,17 +1,31 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart'; // Import this for kIsWeb
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'app/modules/notifications/notification_handler.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'app/modules/profile/providers/profile_provider.dart';
 import 'app/routes/app_pages.dart';
 import 'firebase_options.dart';
+import 'app/modules/notifications/notification_handler.dart';
 
-Future<void> main() async {
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  NotificationHandler().showNotification(
+    message.notification?.title,
+    message.notification?.body,
+  );
+}
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // Initialize notifications
+  // Register background handler only on platforms that support it
+  if (!kIsWeb) {
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
+
   NotificationHandler().initialize();
 
   runApp(
@@ -27,7 +41,6 @@ Future<void> main() async {
     ),
   );
 
-  // Display dialog on app startup
   WidgetsBinding.instance.addPostFrameCallback((_) {
     showDialog(
       context: Get.context!,
