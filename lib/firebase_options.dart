@@ -72,4 +72,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'elmovie-b11df.appspot.com',
     iosBundleId: 'com.example.flutterApplication1',
   );
+
 }
