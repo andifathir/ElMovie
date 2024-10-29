@@ -1,4 +1,5 @@
 
+import 'package:flutter_application_1/app/modules/catatan/bindings/catatan_bindings.dart';
 import 'package:flutter_application_1/app/modules/movie_detail/bindings/movie_detail_binding.dart';
 import 'package:flutter_application_1/app/modules/movie_detail/view/movie_detail_view.dart';
 import 'package:flutter_application_1/app/modules/profile/bindings/profile_binding.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_application_1/app/modules/login/bindings/login_binding.d
 import 'package:flutter_application_1/app/modules/login/views/login_view.dart';
 import 'package:get/get.dart';
 
+import '../modules/catatan/view/catatan_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/controllers/login_controller.dart';
@@ -54,7 +56,11 @@ class AppPages {
       name: _Paths.MOVIE_DETAILS_WEBVIEW,
       page: () => MovieDetailWebView(movie: Get.arguments),
       binding: MovieDetailBinding(),
-    )
-   
+    ),
+    GetPage(
+      name: _Paths.CATATAN, 
+      page: () => CatatanView(),
+      binding: CatatanBinding(),
+      )
   ];
 }

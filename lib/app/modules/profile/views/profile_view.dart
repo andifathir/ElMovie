@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/app/modules/login/views/login_view.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import '../../../routes/app_pages.dart';
 import '../providers/profile_provider.dart'; // Pastikan path ini benar
 
 class ProfileView extends StatelessWidget {

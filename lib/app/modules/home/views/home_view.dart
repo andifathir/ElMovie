@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app/modules/catatan/view/catatan_view.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart'; // Import Provider
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart'; // Import PersistentTabView
@@ -23,7 +24,8 @@ class _HomeViewState extends State<HomeView> {
   List<Widget> _buildScreens() {
     return [
       _buildMovieRecommendations(),
-      const ProfileView(), // Example of another screen, replace with your desired view
+      CatatanView(), // Example of another screen, replace with your desired view
+      const ProfileView(),
       // Add more views here
     ];
   }
@@ -35,6 +37,13 @@ class _HomeViewState extends State<HomeView> {
         item: ItemConfig(
           icon: const Icon(Icons.home),
           title: "Home",
+        ),
+      ),
+      PersistentTabConfig(
+        screen: CatatanView(),
+        item: ItemConfig(
+          icon: const Icon(Icons.library_books),
+          title: "Catatan",
         ),
       ),
       PersistentTabConfig(

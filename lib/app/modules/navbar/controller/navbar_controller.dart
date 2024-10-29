@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app/modules/catatan/view/catatan_view.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
@@ -27,6 +28,13 @@ class NavbarController extends GetxController {
       item: ItemConfig(
         icon: const Icon(Icons.settings),
         title: "Settings",
+      ),
+    ),
+     PersistentTabConfig(
+      screen: CatatanView(),
+      item: ItemConfig(
+        icon: const Icon(Icons.book),
+        title: "Catatan",
       ),
     ),
   ];
