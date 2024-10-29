@@ -5,9 +5,9 @@ abstract class Routes {
   Routes._();
   static const HOME = _Paths.HOME;
   static const SplashScreen = _Paths.SplashScreen;
-  static const Login = _Paths.Login;
-  static const Profile = _Paths.Profile;
-  static const MOVIE = _Paths.MOVIE;
+  static const LOGIN = _Paths.LOGIN;
+  static const REGISTER = _Paths.REGISTER;
+  static const PROFILE = _Paths.PROFILE;
   static const MOVIE_DETAILS = _Paths.MOVIE_DETAILS;
   static const MOVIE_DETAILS_WEBVIEW = _Paths.MOVIE_DETAILS_WEBVIEW;
 }
@@ -16,9 +16,9 @@ abstract class _Paths {
   _Paths._();
   static const HOME = '/home';
   static const SplashScreen = '/SplashScreen';
-  static const Login = '/Login';
-  static const Profile = '/Profile';
-  static const MOVIE = '/movie';
+  static const LOGIN = '/login';
+  static const REGISTER = '/register';
+  static const PROFILE = '/profile';
   static const MOVIE_DETAILS = '/movie_details';
   static const MOVIE_DETAILS_WEBVIEW = '/movie_details_webview';
 }

@@ -2,28 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
 
-class LoginView extends GetView<AuthController> {
-  const LoginView({super.key});
+class RegisterView extends GetView<AuthController> {
+  const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Register'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      extendBodyBehindAppBar: true,
       body: Stack(
         children: [
           // Background Image
           Positioned.fill(
             child: Image.asset(
-              'assets/BG_BELAKANG.png', // Ensure this file exists in assets
+              'assets/BG_BELAKANG.png', // Make sure the file exists in assets
               fit: BoxFit.cover,
             ),
           ),
-          // Overlay for better readability
+          // Overlay for readability
           Positioned.fill(
             child: Container(
               color: Colors.black.withOpacity(0.5),
             ),
           ),
-          // Login Form Content
+          // Register Form Content
           Center(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -33,13 +39,13 @@ class LoginView extends GetView<AuthController> {
                   children: [
                     // Logo
                     Image.asset(
-                      'assets/logo.png', // Ensure this file exists in assets
+                      'assets/logo.png', // Make sure the file exists in assets
                       height: 100,
                     ),
                     const SizedBox(height: 20),
                     // Welcome Text
                     Text(
-                      'Welcome Back!',
+                      'Create Your Account',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -48,7 +54,7 @@ class LoginView extends GetView<AuthController> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'Please sign in to continue',
+                      'Please fill in the details below',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.white.withOpacity(0.8),
@@ -98,9 +104,9 @@ class LoginView extends GetView<AuthController> {
                                 : null,
                           ),
                           const SizedBox(height: 20),
-                          // Login Button
+                          // Register Button
                           ElevatedButton(
-                            onPressed: controller.loginUser,
+                            onPressed: controller.registerUser,
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 14, horizontal: 80),
@@ -110,16 +116,16 @@ class LoginView extends GetView<AuthController> {
                               backgroundColor: Colors.blueAccent,
                             ),
                             child: Text(
-                              'Login',
+                              'Register',
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
                           const SizedBox(height: 20),
-                          // Register Button
+                          // Login Button
                           TextButton(
-                            onPressed: () => Get.offNamed('/register'),
+                            onPressed: () => Get.offNamed('/login'),
                             child: Text(
-                              'Don\'t have an account? Register',
+                              'Already have an account? Login',
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
