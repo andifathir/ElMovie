@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import 'app/modules/notification/notification_service.dart';
 import 'app/modules/profile/providers/profile_provider.dart'; // Perbaiki path jika perlu
 import 'app/routes/app_pages.dart';
 
@@ -12,6 +13,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await NotificationService.instance.initialize();
 
   runApp(
     MultiProvider(
