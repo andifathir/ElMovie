@@ -1,5 +1,4 @@
-import 'package:ElMovie/app/modules/login/views/login_view.dart';
-import 'package:ElMovie/app/modules/navbar/views/navbar_view.dart';
+import 'package:ElMovie/app/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +18,7 @@ class AuthController extends GetxController {
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
         );
-        Get.off((const LoginView())); // Uses GetX for navigation
+        Get.offNamed(Routes.LOGIN);
       } on FirebaseAuthException catch (e) {
         Get.snackbar("Error", e.message ?? "Registration failed");
       }
@@ -33,7 +32,7 @@ class AuthController extends GetxController {
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
         );
-        Get.off((const NavbarView())); // Uses GetX for navigation
+        Get.offNamed(Routes.NAVBAR);
       } on FirebaseAuthException catch (e) {
         Get.snackbar("Error", e.message ?? "Login failed");
       }
@@ -42,6 +41,6 @@ class AuthController extends GetxController {
 
   void logout() async {
     await _auth.signOut();
-    Get.offAll(const LoginView());
+    Get.offAllNamed(Routes.LOGIN);
   }
 }

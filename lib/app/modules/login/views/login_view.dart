@@ -1,3 +1,4 @@
+import 'package:ElMovie/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
@@ -117,7 +118,7 @@ class LoginView extends GetView<AuthController> {
                           const SizedBox(height: 20),
                           // Register Button
                           TextButton(
-                            onPressed: () => Get.offNamed('/register'),
+                            onPressed: () => Get.offNamed(Routes.REGISTER),
                             child: Text(
                               'Don\'t have an account? Register',
                               style: TextStyle(color: Colors.white),

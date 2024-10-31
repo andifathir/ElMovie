@@ -1,4 +1,5 @@
 import 'package:ElMovie/app/modules/catatan/view/catatan_view.dart';
+import 'package:ElMovie/app/modules/home/controllers/home_controller.dart';
 import 'package:ElMovie/app/modules/home/views/home_view.dart';
 import 'package:ElMovie/app/modules/navbar/controllers/navbar_controller.dart';
 import 'package:ElMovie/app/modules/profile/views/profile_view.dart';
@@ -10,10 +11,12 @@ class NavbarView extends GetView<NavbarController> {
   const NavbarView({super.key});
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        // title: "Persistent Bottom Navigation Bar Demo",
-        home: MinimalExample(),
-      );
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      // title: "Persistent Bottom Navigation Bar Demo",
+      home: MinimalExample(),
+    );
+  }
 }
 
 class MinimalExample extends StatelessWidget {
@@ -30,7 +33,7 @@ class MinimalExample extends StatelessWidget {
           ),
         ),
         PersistentTabConfig(
-          screen: CatatanView(),
+          screen: const CatatanView(),
           item: ItemConfig(
             icon: const Icon(Icons.library_books),
             title: "Catatan",

@@ -23,7 +23,7 @@ class MovieController extends GetxController {
         final List<dynamic> jsonList = json.decode(response.body);
         // Limit to only the first 10 movies
         movies.value =
-            jsonList.take(5).map((json) => Movie.fromJson(json)).toList();
+            jsonList.take(1).map((json) => Movie.fromJson(json)).toList();
       } else {
         throw Exception('Failed to load movie data');
       }

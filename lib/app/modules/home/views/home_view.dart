@@ -39,8 +39,7 @@ class HomeView extends GetView<HomeController> {
               cursor: SystemMouseCursors.click, // Change cursor on hover
               child: GestureDetector(
                 onTap: () {
-                  Get.to(
-                      () => ProfileView()); // Use Get.to instead of Navigator
+                  Get.to(Routes.PROFILE); // Use Get.to instead of Navigator
                 },
                 child: Consumer<ProfileProvider>(
                   builder: (context, profileProvider, child) {

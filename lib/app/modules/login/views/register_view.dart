@@ -1,3 +1,4 @@
+import 'package:ElMovie/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/auth_controller.dart';
@@ -9,7 +10,6 @@ class RegisterView extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -123,7 +123,7 @@ class RegisterView extends GetView<AuthController> {
                           const SizedBox(height: 20),
                           // Login Button
                           TextButton(
-                            onPressed: () => Get.offNamed('/login'),
+                            onPressed: () => Get.offNamed(Routes.LOGIN),
                             child: Text(
                               'Already have an account? Login',
                               style: TextStyle(color: Colors.white),

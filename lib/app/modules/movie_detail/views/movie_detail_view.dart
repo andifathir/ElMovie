@@ -1,5 +1,6 @@
 import 'package:ElMovie/app/data/models/movie.dart';
 import 'package:ElMovie/app/modules/movie_detail/views/movie_detail_web_view.dart';
+import 'package:ElMovie/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/movie_detail_controller.dart';
@@ -40,7 +41,10 @@ class MovieDetailView extends GetView<MovieDetailController> {
             ElevatedButton(
               child: const Text('Read more'),
               onPressed: () {
-                Get.to(() => MovieDetailWebView(movie: movie));
+                Get.toNamed(
+                  Routes.MOVIE_DETAILS_WEBVIEW,
+                  arguments: movie,
+                );
               },
             )
           ],

@@ -11,6 +11,16 @@ class HomeController extends GetxController {
     fetchMovies();
   }
 
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
+
   void fetchMovies() {
     movieController.fetchMovies();
   }

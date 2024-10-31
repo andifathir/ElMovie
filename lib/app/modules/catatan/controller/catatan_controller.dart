@@ -1,40 +1,47 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class CatatanController {
-  // final CollectionReference _catatanCollection =
-  //     FirebaseFirestore.instance.collection('catatan');
+class CatatanController extends GetxController {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final RxList<Map<String, dynamic>> catatanList = <Map<String, dynamic>>[].obs;
 
-  // // Fungsi untuk Menambahkan Catatan
-  // Future<void> tambahCatatan(String judul, String deskripsi, DateTime tanggal) async {
-  //   await _catatanCollection.add({
-  //     'judul': judul,
-  //     'deskripsi': deskripsi,
-  //     'tanggal': Timestamp.fromDate(tanggal),
-  //   });
-  // }
+  @override
+  void onInit() {
+    catatanList.bindStream(getCatatanList());
+    super.onInit();
+  }
 
-  // // Fungsi untuk Mendapatkan Daftar Catatan
-  // Stream<List<Map<String, dynamic>>> getCatatanList() {
-  //   return _catatanCollection.snapshots().map((querySnapshot) =>
-  //       querySnapshot.docs.map((doc) {
-  //         var data = doc.data() as Map<String, dynamic>;
-  //         data['id'] = doc.id;  // Menyimpan doc.id untuk referensi pada operasi selanjutnya
-  //         return data;
-  //       }).toList());
-  // }
+  Stream<List<Map<String, dynamic>>> getCatatanList() {
+    return firestore.collection('Catatan').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        data['id'] = doc.id;
+        return data;
+      }).toList();
+    });
+  }
 
-  // // Fungsi untuk Memperbarui Catatan
-  // Future<void> updateCatatan(String id, String judul, String deskripsi, DateTime tanggal) async {
-  //   await _catatanCollection.doc(id).update({
-  //     'judul': judul,
-  //     'deskripsi': deskripsi,
-  //     'tanggal': Timestamp.fromDate(tanggal),
-  //   });
-  // }
+  Future<void> tambahCatatan(
+      String judul, String deskripsi, String tanggal) async {
+    await firestore.collection('Catatan').add({
+      'judul': judul,
+      'deskripsi': deskripsi,
+      'tanggal': tanggal,
+    });
+  }
 
-  // // Fungsi untuk Menghapus Catatan
-  // Future<void> hapusCatatan(String id) async {
-  //   await _catatanCollection.doc(id).delete();
-  // }
+  Future<void> hapusCatatan(String id) async {
+    await firestore.collection('Catatan').doc(id).delete();
+  }
+
+  Future<void> updateCatatan(
+      String id, String judul, String deskripsi, String tanggal) async {
+    await firestore.collection('Catatan').doc(id).update({
+      'judul': judul,
+      'deskripsi': deskripsi,
+      'tanggal': tanggal,
+    });
+  }
 }
