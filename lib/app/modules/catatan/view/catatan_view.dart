@@ -28,7 +28,7 @@ class _CatatanViewState extends State<CatatanView> {
     await firestore.collection('Catatan').add({
       'judul': judul,
       'deskripsi': deskripsi,
-      'tanggal': tanggal, // Simpan tanggal sebagai string
+      'tanggal': tanggal,
     });
   }
 
@@ -187,7 +187,7 @@ class _CatatanViewState extends State<CatatanView> {
     await firestore.collection('Catatan').doc(id).update({
       'judul': judul,
       'deskripsi': deskripsi,
-      'tanggal': tanggal, // Update tanggal sebagai string
+      'tanggal': tanggal,
     });
   }
 
@@ -198,7 +198,7 @@ class _CatatanViewState extends State<CatatanView> {
         // Background Image
         Positioned.fill(
           child: Image.asset(
-            'assets/BG_BELAKANG_HOME.png', // Ganti dengan path gambar yang kamu miliki
+            'assets/BG_BELAKANG_HOME.png',
             fit: BoxFit.cover,
           ),
         ),
@@ -282,7 +282,7 @@ class _CatatanViewState extends State<CatatanView> {
   }
 }
 
-extension StringCasingExtension on String {
-  String get capitalizeFirst =>
-      this.isEmpty ? this : '${this[0].toUpperCase()}${this.substring(1)}';
-}
+// extension StringCasingExtension on String {
+//   String get capitalizeFirst =>
+//       this.isEmpty ? this : '${this[0].toUpperCase()}${this.substring(1)}';
+// }
