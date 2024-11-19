@@ -13,7 +13,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  NotificationService.instance.initialize();
+  await NotificationService.instance.initialize();
 
   runApp(
     MultiProvider(

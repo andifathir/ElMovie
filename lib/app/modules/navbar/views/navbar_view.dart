@@ -1,5 +1,5 @@
+import 'package:ElMovie/app/modules/camera/views/camera_view.dart';
 import 'package:ElMovie/app/modules/catatan/view/catatan_view.dart';
-import 'package:ElMovie/app/modules/home/controllers/home_controller.dart';
 import 'package:ElMovie/app/modules/home/views/home_view.dart';
 import 'package:ElMovie/app/modules/navbar/controllers/navbar_controller.dart';
 import 'package:ElMovie/app/modules/profile/views/profile_view.dart';
@@ -26,8 +26,7 @@ class MinimalExample extends StatelessWidget {
         PersistentTabConfig(
           screen: HomeView(),
           item: ItemConfig(
-            activeForegroundColor: Colors.white,
-            inactiveBackgroundColor: Colors.white,
+            
             icon: const Icon(Icons.home),
             title: "Home",
           ),
@@ -37,6 +36,13 @@ class MinimalExample extends StatelessWidget {
           item: ItemConfig(
             icon: const Icon(Icons.library_books),
             title: "Catatan",
+          ),
+        ),
+        PersistentTabConfig(
+          screen: CameraView(),
+          item: ItemConfig(
+            icon: const Icon(Icons.reviews),
+            title: "Reviews",
           ),
         ),
         PersistentTabConfig(
