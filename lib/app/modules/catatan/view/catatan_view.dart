@@ -2,6 +2,7 @@ import 'package:ElMovie/app/modules/catatan/controller/catatan_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class CatatanView extends GetView<CatatanController> {
   const CatatanView({super.key});
@@ -10,6 +11,7 @@ class CatatanView extends GetView<CatatanController> {
     String judul = '';
     String deskripsi = '';
     String tanggal = DateFormat('d MMMM yyyy').format(DateTime.now());
+    final player = AudioPlayer();
 
     await showDialog<void>(
         context: context,
@@ -59,6 +61,18 @@ class CatatanView extends GetView<CatatanController> {
                       if (judul.isNotEmpty && deskripsi.isNotEmpty) {
                         controller.tambahCatatan(judul, deskripsi, tanggal);
                         Navigator.of(context).pop();
+
+                        // Show success popup
+                        Get.snackbar(
+                          'Berhasil',
+                          'Catatan berhasil ditambahkan!',
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.green,
+                          colorText: Colors.white,
+                        );
+
+                        // Play success sound
+                        player.play(AssetSource('success.mp3'));
                       }
                     },
                     child: const Text('Simpan'),
