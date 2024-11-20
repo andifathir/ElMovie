@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/camera/bindings/camera_binding.dart';
+import '../modules/camera/views/camera_view.dart';
 import '../modules/catatan/bindings/catatan_bindings.dart';
 import '../modules/catatan/view/catatan_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -16,14 +18,6 @@ import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/splash_screen/bindings/splashscreen_binding.dart';
 import '../modules/splash_screen/views/splashscreen_view.dart';
-
-// Movie Detail
-// Navbar
-// Profile
-//SplashScreen
-// Login
-// Catatan
-// Home
 
 part 'app_routes.dart';
 
@@ -81,6 +75,11 @@ class AppPages {
       name: _Paths.CATATAN,
       page: () => const CatatanView(),
       binding: CatatanBinding(),
+    ),
+    GetPage(
+      name: _Paths.CAMERA,
+      page: () => CameraView(),
+      binding: CameraBinding(),
     ),
   ];
 }
