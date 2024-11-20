@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'app/modules/notification/notification_service.dart';
-import 'app/modules/profile/providers/profile_provider.dart'; // Perbaiki path jika perlu
+import 'app/modules/profile/providers/profile_provider.dart';
 import 'app/routes/app_pages.dart';
 
 Future<void> main() async {
@@ -22,6 +22,7 @@ Future<void> main() async {
       ],
       child: GetMaterialApp(
         title: "ELMOVIE",
+        debugShowCheckedModeBanner: false,
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       ),
