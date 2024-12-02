@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
+import '../../location/views/location_view.dart';
+
 class NavbarView extends GetView<NavbarController> {
   const NavbarView({super.key});
 
@@ -43,6 +45,13 @@ class MinimalExample extends StatelessWidget {
           item: ItemConfig(
             icon: const Icon(Icons.reviews),
             title: "Reviews",
+          ),
+        ),
+         PersistentTabConfig(
+          screen: LocationView(),
+          item: ItemConfig(
+            icon: const Icon(Icons.local_activity),
+            title: "Bioskop",
           ),
         ),
         PersistentTabConfig(

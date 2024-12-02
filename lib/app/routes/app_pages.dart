@@ -6,6 +6,8 @@ import '../modules/catatan/bindings/catatan_bindings.dart';
 import '../modules/catatan/view/catatan_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/location/bindings/location_binding.dart';
+import '../modules/location/views/location_view.dart';
 import '../modules/login/bindings/auth_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/login/views/register_view.dart';
@@ -24,7 +26,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SplashScreen;
+  static const INITIAL = Routes.LOCATION;
 
   static final routes = [
     GetPage(
@@ -80,6 +82,11 @@ class AppPages {
       name: _Paths.CAMERA,
       page: () => CameraView(),
       binding: CameraBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOCATION,
+      page: () => const LocationView(),
+      binding: LocationBinding(),
     ),
   ];
 }
