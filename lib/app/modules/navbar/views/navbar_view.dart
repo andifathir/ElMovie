@@ -28,7 +28,6 @@ class MinimalExample extends StatelessWidget {
         PersistentTabConfig(
           screen: HomeView(),
           item: ItemConfig(
-            
             icon: const Icon(Icons.home),
             title: "Home",
           ),
@@ -47,7 +46,7 @@ class MinimalExample extends StatelessWidget {
             title: "Reviews",
           ),
         ),
-         PersistentTabConfig(
+        PersistentTabConfig(
           screen: LocationView(),
           item: ItemConfig(
             icon: const Icon(Icons.local_activity),

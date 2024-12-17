@@ -1,5 +1,6 @@
 import 'package:ElMovie/app/modules/login/controllers/auth_controller.dart';
 import 'package:ElMovie/app/modules/login/views/login_view.dart';
+import 'package:ElMovie/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
       backgroundColor: Colors.black,
       onInit: () {
         debugPrint("On Init");
-        Get.put(AuthController());
+        Get.put(AuthController()); // Initialize AuthController
       },
       onEnd: () {
         debugPrint("On End");
@@ -24,8 +25,11 @@ class SplashScreenView extends GetView<SplashScreenController> {
         width: 200,
         child: Image.asset("assets/logo.png"),
       ),
-      onAnimationEnd: () => debugPrint("On Fade In End"),
-      nextScreen: const LoginView(),
+      onAnimationEnd: () {
+        debugPrint("On Fade In End");
+        // Navigate to LoginView after the animation ends
+        Get.offNamed(Routes.LOGIN);
+      },
     );
   }
 }
