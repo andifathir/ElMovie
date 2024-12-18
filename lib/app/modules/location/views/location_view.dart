@@ -20,7 +20,8 @@ class LocationView extends GetView<LocationController> {
         Scaffold(
           backgroundColor: Colors.transparent, // Make the body transparent
           appBar: AppBar(
-            title: const Text('Nearby Cinemas', style: TextStyle(color: Colors.white)),
+            title: const Text('Cinema Locations',
+                style: TextStyle(color: Colors.white)),
             centerTitle: true,
             backgroundColor: Colors.transparent, // Make the AppBar transparent
             elevation: 0, // Remove AppBar shadow
@@ -48,19 +49,23 @@ class LocationView extends GetView<LocationController> {
                       final lat = controller.userPosition.value!.latitude;
                       final lng = controller.userPosition.value!.longitude;
 
-                      final googleMapsUrl = Uri.parse(
-                          "https://www.google.com/maps/search/?api=1&query=$lat,$lng");
+                      Uri googleMapsUrl =
+                          Uri.parse("https://www.google.com/maps?q=$lat,$lng");
 
-                      // Open the user's location in Google Maps
-                      if (await canLaunchUrl(googleMapsUrl)) {
-                        await launchUrl(googleMapsUrl,
-                            mode: LaunchMode.externalApplication);
-                      } else {
-                        Get.snackbar(
-                          'Error',
-                          'Could not open Google Maps.',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
+                      try {
+                        // Open the user's location in Google Maps
+                        if (await canLaunchUrl(googleMapsUrl)) {
+                          await launchUrl(googleMapsUrl);
+                        } else {
+                          Get.snackbar(
+                            'Error',
+                            'Could not open Google Maps.',
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        }
+                      } catch (e) {
+                        // Handle any exceptions that might occur
+                        print('$e');
                       }
                     },
                     child: Container(
@@ -111,13 +116,12 @@ class LocationView extends GetView<LocationController> {
                           final lat = cinema['latitude'];
                           final lng = cinema['longitude'];
 
-                          final googleMapsUrl = Uri.parse(
-                              "https://www.google.com/maps/search/?api=1&query=$lat,$lng");
+                          Uri googleMapsUrl = Uri.parse(
+                              "https://www.google.com/maps?q=$lat,$lng");
 
                           // Check if Google Maps can be opened
                           if (await canLaunchUrl(googleMapsUrl)) {
-                            await launchUrl(googleMapsUrl,
-                                mode: LaunchMode.externalApplication);
+                            await launchUrl(googleMapsUrl);
                           } else {
                             Get.snackbar(
                               'Error',

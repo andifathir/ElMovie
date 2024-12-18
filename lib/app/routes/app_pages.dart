@@ -4,6 +4,8 @@ import '../modules/camera/bindings/camera_binding.dart';
 import '../modules/camera/views/camera_view.dart';
 import '../modules/catatan/bindings/catatan_bindings.dart';
 import '../modules/catatan/view/catatan_view.dart';
+import '../modules/connection/bindings/connection_binding.dart';
+import '../modules/connection/views/connection_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/location/bindings/location_binding.dart';
@@ -45,8 +47,6 @@ class AppPages {
         page: () => const SplashScreenView(),
         bindings: [
           SplashScreenBinding(),
-          HomeBinding(),
-          NavbarBinding(),
         ]),
     GetPage(
       name: _Paths.LOGIN,
@@ -87,6 +87,11 @@ class AppPages {
       name: _Paths.LOCATION,
       page: () => const LocationView(),
       binding: LocationBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONNECTION,
+      page: () => ConnectionView(),
+      binding: ConnectionBinding(),
     ),
   ];
 }

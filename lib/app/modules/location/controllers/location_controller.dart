@@ -129,7 +129,7 @@ class LocationController extends GetxController {
   void _findNearbyCinemas() {
     if (userPosition.value == null) return;
 
-    const double maxDistance = 15000; // Max distance in meters (5 km)
+    const double maxDistance = 15000; // Max distance in meters (15 km)
     Position currentPosition = userPosition.value!;
 
     nearbyCinemas.value = cinemaLocations.where((cinema) {
