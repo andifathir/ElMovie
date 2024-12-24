@@ -97,7 +97,7 @@ class LoginView extends GetView<AuthController> {
                                   controller.isPasswordVisible.value
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: Colors.white,
+                                  color: const Color(0xFF5963DC),
                                 ),
                                 onPressed: () {
                                   controller.togglePasswordVisibility();
