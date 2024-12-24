@@ -1,3 +1,4 @@
+import 'package:ElMovie/app/modules/camera/views/camera_view.dart';
 import 'package:ElMovie/app/modules/login/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,19 +33,24 @@ class ProfileView extends StatelessWidget {
                       const SizedBox(height: 50),
                       Row(
                         children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundImage:
-                                profileProvider.profileImage != null
-                                    ? FileImage(profileProvider.profileImage!)
-                                    : null,
-                            child: profileProvider.profileImage == null
-                                ? const Icon(
-                                    Icons.person,
-                                    size: 30,
-                                    color: Colors.white,
-                                  )
-                                : null,
+                          GestureDetector(
+                            onTap: () async {
+                              await profileProvider.pickImage();
+                            },
+                            child: CircleAvatar(
+                              radius: 50, // Increased radius for larger profile picture
+                              backgroundImage:
+                                  profileProvider.profileImage != null
+                                      ? FileImage(profileProvider.profileImage!)
+                                      : null,
+                              child: profileProvider.profileImage == null
+                                  ? const Icon(
+                                      Icons.person,
+                                      size: 50,
+                                      color: Colors.white,
+                                    )
+                                  : null,
+                            ),
                           ),
                           const SizedBox(width: 10),
                           Column(
@@ -72,18 +78,6 @@ class ProfileView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.black,
-                          backgroundColor: Colors.white,
-                        ),
-                        onPressed: () async {
-                          await profileProvider.pickImage();
-                        },
-                        icon: const Icon(Icons.photo, color: Colors.black),
-                        label: const Text('Change Profile Picture',
-                            style: TextStyle(color: Colors.black)),
-                      ),
                       const SizedBox(height: 30),
                       const Text(
                         'Your Archive',
@@ -97,11 +91,21 @@ class ProfileView extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildActionButton('Booklist'),
+                          _buildActionButton('Booklist', () {
+                            debugPrint('Booklist button pressed');
+                          }),
                           const SizedBox(height: 10),
-                          _buildActionButton('Review'),
+                          _buildActionButton('Review', () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CameraView()),
+                            );
+                          }),
                           const SizedBox(height: 10),
-                          _buildActionButton('History'),
+                          _buildActionButton('History', () {
+                            debugPrint('History button pressed');
+                          }),
                         ],
                       ),
                       const SizedBox(height: 30),
@@ -191,15 +195,13 @@ class ProfileView extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
-                // Navigate to the login screen
-                Navigator.of(context).pop(); // Close the dialog
-                // Get.offAll(() => const LoginView()); // Navigate to login
+                Navigator.of(context).pop();
                 _authController.logout();
               },
               child: const Text('Logout'),
@@ -210,16 +212,14 @@ class ProfileView extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButton(String title) {
+  Widget _buildActionButton(String title, VoidCallback onPressed) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
         backgroundColor: Colors.blue,
         minimumSize: const Size(double.infinity, 40),
       ),
-      onPressed: () {
-        debugPrint('$title button pressed');
-      },
+      onPressed: onPressed,
       child: Text(title),
     );
   }
@@ -235,6 +235,18 @@ class ProfileView extends StatelessWidget {
         debugPrint('$title button pressed');
       },
       child: Text(title),
+    );
+  }
+}
+
+class ReviewPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Review Page')),
+      body: const Center(
+        child: Text('This is the Review Page'),
+      ),
     );
   }
 }
