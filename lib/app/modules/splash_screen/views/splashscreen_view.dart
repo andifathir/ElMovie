@@ -23,7 +23,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
       childWidget: SizedBox(
         height: 200,
         width: 200,
-        child: Image.asset("assets/logo.png"),
+        child: Image.asset("assets/Logo Awal Splash Screen.png"),
       ),
       onAnimationEnd: () {
         debugPrint("On Fade In End");

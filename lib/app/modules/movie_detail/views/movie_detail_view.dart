@@ -184,7 +184,7 @@ class MovieDetailView extends GetView<MovieDetailController> {
               // Action Buttons
               ElevatedButton.icon(
                 onPressed: () {
-                  Get.toNamed(Routes.CAMERA, arguments: movie);
+                  Get.toNamed(Routes.REVIEW, arguments: movie);
                 },
                 icon: Icon(Icons.rate_review),
                 label: Text('Add Review'),
