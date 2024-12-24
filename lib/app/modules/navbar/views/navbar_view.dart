@@ -64,7 +64,7 @@ class MinimalExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => PersistentTabView(
-        backgroundColor: Colors.red,
+        backgroundColor: const Color(0xFF5963DC), // Updated background color
         tabs: _tabs(),
         navBarBuilder: (navBarConfig) => Style9BottomNavBar(
           navBarConfig: navBarConfig,

@@ -74,7 +74,7 @@ class _CameraViewState extends State<CameraView> {
                   Text('Rating:', style: TextStyle(color: Colors.white)),
                   SizedBox(width: 8),
                   DropdownButton<double>(
-                    value: selectedRating,
+                    value: selectedRating, // Ensure the value is the latest selectedRating
                     dropdownColor: Colors.black,
                     style: TextStyle(color: Colors.white),
                     items: [
@@ -87,7 +87,7 @@ class _CameraViewState extends State<CameraView> {
                     onChanged: (double? newValue) {
                       if (newValue != null) {
                         setState(() {
-                          selectedRating = newValue;
+                          selectedRating = newValue; // Update the selected rating
                         });
                       }
                     },
@@ -122,7 +122,7 @@ class _CameraViewState extends State<CameraView> {
                     _capturedMediaList.add(mediaFile);
                     _reviews.add({
                       'title': titleText,
-                      'rating': selectedRating,
+                      'rating': selectedRating, // Use the updated selected rating
                       'review': reviewText,
                     });
                   });

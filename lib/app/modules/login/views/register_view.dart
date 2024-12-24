@@ -39,15 +39,15 @@ class RegisterView extends GetView<AuthController> {
                   children: [
                     // Logo
                     Image.asset(
-                      'assets/logo.png', // Make sure the file exists in assets
-                      height: 100,
+                      'assets/Logo Awal Splash Screen.png', // Make sure the file exists in assets
+                      height: 250,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
                     // Welcome Text
                     Text(
                       'Create Your Account',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 36,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -109,15 +109,15 @@ class RegisterView extends GetView<AuthController> {
                             onPressed: controller.registerUser,
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 14, horizontal: 80),
+                                  vertical: 20, horizontal: 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              backgroundColor: Colors.blueAccent,
+                              backgroundColor:const Color(0xFF5963DC),
                             ),
                             child: Text(
                               'Register',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ),
                           const SizedBox(height: 20),

@@ -134,12 +134,12 @@ class LocationView extends GetView<LocationController> {
                           margin: const EdgeInsets.only(bottom: 12.0),
                           padding: const EdgeInsets.all(16.0),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
+                             color: Colors.white.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(12.0),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                blurRadius: 8.0,
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 10.0,
                                 offset: const Offset(0, 4),
                               ),
                             ],
@@ -152,7 +152,7 @@ class LocationView extends GetView<LocationController> {
                                 style: const TextStyle(
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                                  color: Colors.white,
                                 ),
                               ),
                               const SizedBox(height: 8.0),
@@ -160,7 +160,7 @@ class LocationView extends GetView<LocationController> {
                                 cinema['address'],
                                 style: const TextStyle(
                                   fontSize: 14.0,
-                                  color: Colors.grey,
+                                   color: Color(0xFFE7E7E7),
                                 ),
                               ),
                             ],

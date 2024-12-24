@@ -21,7 +21,7 @@ class LoginView extends GetView<AuthController> {
           // Overlay for better readability
           Positioned.fill(
             child: Container(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withOpacity(0.3),
             ),
           ),
           // Login Form Content
@@ -34,15 +34,15 @@ class LoginView extends GetView<AuthController> {
                   children: [
                     // Logo
                     Image.asset(
-                      'assets/logo.png', // Ensure this file exists in assets
-                      height: 100,
+                      'assets/Logo Awal Splash Screen.png', // Ensure this file exists in assets
+                      height: 250,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
                     // Welcome Text
                     Text(
                       'Welcome Back!',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 36,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -104,15 +104,15 @@ class LoginView extends GetView<AuthController> {
                             onPressed: controller.loginUser,
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 14, horizontal: 80),
+                                  vertical: 20, horizontal: 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              backgroundColor: Colors.blueAccent,
+                              backgroundColor:const Color(0xFF5963DC),
                             ),
                             child: Text(
                               'Login',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ),
                           const SizedBox(height: 20),
