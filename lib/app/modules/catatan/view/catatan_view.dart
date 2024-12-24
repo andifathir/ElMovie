@@ -7,8 +7,6 @@ import 'package:audioplayers/audioplayers.dart';
 class CatatanView extends GetView<CatatanController> {
   const CatatanView({super.key});
   
-  
-
   Future<void> showAddCatatanDialog(BuildContext context) async {
     String judul = '';
     String deskripsi = '';
