@@ -10,7 +10,7 @@ class MovieController extends GetxController {
   Future<void> fetchMovies() async {
     const String url = 'https://imdb-top-100-movies.p.rapidapi.com/';
     final Map<String, String> headers = {
-      'X-Rapidapi-Key': '429976fdd8mshd83ac32e0654c31p1b44abjsn192783200b19',
+      'X-Rapidapi-Key': '2eda94a122msh2f98cba158c3a56p1dbef9jsn33fc7c8a713e',
       'X-Rapidapi-Host': 'imdb-top-100-movies.p.rapidapi.com',
       'Content-Type': 'application/json',
     };

@@ -45,13 +45,16 @@ class FavoriteView extends GetView<FavoriteController> {
               itemBuilder: (context, index) {
                 final movie = controller.favorites[index];
                 return Card(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.grey.withOpacity(0.8),
                   margin:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
                     leading: Icon(Icons.movie, color: Colors.blueGrey[700]),
-                    title: Text(movie['title'] ?? 'Unknown Title'),
-                    subtitle: Text(movie['description'] ?? 'No description'),
+                    title: Text(
+                      movie['movieName'] ??
+                          'Unknown Title', // Display only movieName
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 );
               },
