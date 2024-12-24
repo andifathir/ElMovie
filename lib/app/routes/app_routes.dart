@@ -13,10 +13,9 @@ abstract class Routes {
   static const MOVIE_DETAILS_WEBVIEW = _Paths.MOVIE_DETAILS_WEBVIEW;
   static const CatatanView = _Paths.CATATAN;
   static const MICROPHONE = _Paths.MICROPHONE;
-  static const KAMERA = _Paths.KAMERA;
-  static const CAMERA = _Paths.CAMERA;
   static const LOCATION = _Paths.LOCATION;
   static const CONNECTION = _Paths.CONNECTION;
+  static const REVIEW = _Paths.REVIEW;
 }
 
 abstract class _Paths {
@@ -31,8 +30,7 @@ abstract class _Paths {
   static const MOVIE_DETAILS_WEBVIEW = '/movie_details_webview';
   static const CATATAN = '/CatatanView';
   static const MICROPHONE = '/microphone';
-  static const KAMERA = '/kamera';
-  static const CAMERA = '/camera';
   static const LOCATION = '/location';
   static const CONNECTION = '/connection';
+  static const REVIEW = '/review';
 }
