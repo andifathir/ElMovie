@@ -85,7 +85,7 @@ class RegisterView extends GetView<AuthController> {
                           ),
                           const SizedBox(height: 20),
                           // Password Field
-                          TextFormField(
+                          Obx(() => TextFormField(
                             controller: controller.passwordController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
@@ -97,23 +97,34 @@ class RegisterView extends GetView<AuthController> {
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide.none,
                               ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  controller.isPasswordVisible.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  controller.togglePasswordVisibility();
+                                },
+                              ),
                             ),
-                            obscureText: true,
+                            obscureText: !controller.isPasswordVisible.value,
                             validator: (value) => value!.length < 6
                                 ? 'Password must be at least 6 characters'
                                 : null,
-                          ),
+                          )),
                           const SizedBox(height: 20),
                           // Register Button
                           ElevatedButton(
                             onPressed: controller.registerUser,
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 50),
+                                  vertical: 15, horizontal: 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              backgroundColor:const Color(0xFF5963DC),
+                              backgroundColor: const Color(0xFF5963DC),
                             ),
                             child: Text(
                               'Register',
