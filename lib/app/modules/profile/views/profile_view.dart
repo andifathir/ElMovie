@@ -132,7 +132,7 @@ class ProfileView extends GetView<ProfileController> {
                   const SizedBox(height: 10),
                   _buildActionButton('Disliked Movies', () {
                     Get.toNamed(
-                        '/disliked_movies'); // Navigate to the Disliked Movies page
+                        '/dislike'); // Navigate to the Disliked Movies page
                   }),
                   const SizedBox(height: 30),
                   Center(
