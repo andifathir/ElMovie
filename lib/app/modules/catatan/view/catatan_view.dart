@@ -6,13 +6,12 @@ import 'package:audioplayers/audioplayers.dart';
 
 class CatatanView extends GetView<CatatanController> {
   const CatatanView({super.key});
-  
+
   Future<void> showAddCatatanDialog(BuildContext context) async {
     String judul = '';
     String deskripsi = '';
     String tanggal = DateFormat('d MMMM yyyy').format(DateTime.now());
     final player = AudioPlayer();
-
 
     await showDialog<void>(
         context: context,
@@ -20,7 +19,7 @@ class CatatanView extends GetView<CatatanController> {
           return StatefulBuilder(
             builder: (context, setState) {
               return AlertDialog(
-                title: const Text('Watch Lists'),
+                title: const Text('Tambah Catatan'),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

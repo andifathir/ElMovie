@@ -1,5 +1,5 @@
-import 'package:ElMovie/app/modules/camera/views/camera_view.dart';
 import 'package:ElMovie/app/modules/login/controllers/auth_controller.dart';
+import 'package:ElMovie/app/modules/review/views/review_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/profile_provider.dart';
@@ -38,7 +38,8 @@ class ProfileView extends StatelessWidget {
                               await profileProvider.pickImage();
                             },
                             child: CircleAvatar(
-                              radius: 50, // Increased radius for larger profile picture
+                              radius:
+                                  50, // Increased radius for larger profile picture
                               backgroundImage:
                                   profileProvider.profileImage != null
                                       ? FileImage(profileProvider.profileImage!)
@@ -104,7 +105,7 @@ class ProfileView extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CameraView()),
+                                  builder: (context) => ReviewView()),
                             );
                           }),
                           const SizedBox(height: 10),

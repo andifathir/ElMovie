@@ -1,8 +1,8 @@
-import 'package:ElMovie/app/modules/camera/views/camera_view.dart';
 import 'package:ElMovie/app/modules/catatan/view/catatan_view.dart';
 import 'package:ElMovie/app/modules/home/views/home_view.dart';
 import 'package:ElMovie/app/modules/navbar/controllers/navbar_controller.dart';
 import 'package:ElMovie/app/modules/profile/views/profile_view.dart';
+import 'package:ElMovie/app/modules/review/views/review_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -40,7 +40,7 @@ class MinimalExample extends StatelessWidget {
           ),
         ),
         PersistentTabConfig(
-          screen: CameraView(),
+          screen: const ReviewView(),
           item: ItemConfig(
             icon: const Icon(Icons.reviews),
             title: "Reviews",

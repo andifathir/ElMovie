@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 
-import '../modules/camera/bindings/camera_binding.dart';
-import '../modules/camera/views/camera_view.dart';
 import '../modules/catatan/bindings/catatan_bindings.dart';
 import '../modules/catatan/view/catatan_view.dart';
 import '../modules/connection/bindings/connection_binding.dart';
@@ -20,6 +18,8 @@ import '../modules/navbar/bindings/navbar_binding.dart';
 import '../modules/navbar/views/navbar_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/review/bindings/review_binding.dart';
+import '../modules/review/views/review_view.dart';
 import '../modules/splash_screen/bindings/splashscreen_binding.dart';
 import '../modules/splash_screen/views/splashscreen_view.dart';
 
@@ -28,7 +28,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVBAR;
+  static const INITIAL = Routes.SplashScreen;
   static final routes = [
     GetPage(
       name: _Paths.HOME,
@@ -39,6 +39,7 @@ class AppPages {
       NavbarBinding(),
       HomeBinding(),
       CatatanBinding(),
+      ReviewBinding(),
       ProfileBinding()
     ]),
     GetPage(
@@ -78,11 +79,6 @@ class AppPages {
       binding: CatatanBinding(),
     ),
     GetPage(
-      name: _Paths.CAMERA,
-      page: () => CameraView(),
-      binding: CameraBinding(),
-    ),
-    GetPage(
       name: _Paths.LOCATION,
       page: () => const LocationView(),
       binding: LocationBinding(),
@@ -91,6 +87,11 @@ class AppPages {
       name: _Paths.CONNECTION,
       page: () => ConnectionView(),
       binding: ConnectionBinding(),
+    ),
+    GetPage(
+      name: _Paths.REVIEW,
+      page: () => const ReviewView(),
+      binding: ReviewBinding(),
     ),
   ];
 }
