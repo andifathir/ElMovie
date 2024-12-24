@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  var isPasswordVisible = false.obs;
 
   // Make form key and controllers public
   final formKey = GlobalKey<FormState>();
@@ -39,6 +40,9 @@ class AuthController extends GetxController {
     }
   }
 
+void togglePasswordVisibility() {
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
   void logout() async {
     await _auth.signOut();
     Get.offAllNamed(Routes.LOGIN);

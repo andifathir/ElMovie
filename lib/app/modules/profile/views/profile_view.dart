@@ -222,7 +222,7 @@ class ProfileView extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFF5963DC),
         minimumSize: const Size(double.infinity, 40),
       ),
       onPressed: onPressed,
