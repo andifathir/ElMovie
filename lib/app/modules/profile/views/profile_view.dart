@@ -52,29 +52,34 @@ class ProfileView extends StatelessWidget {
                                   : null,
                             ),
                           ),
-                          const SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                profileProvider.username,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  profileProvider.username,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.left,
                                 ),
-                              ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                  size: 20,
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                  onPressed: () {
+                                    _showEditUsernameDialog(
+                                        context, profileProvider);
+                                  },
                                 ),
-                                onPressed: () {
-                                  _showEditUsernameDialog(
-                                      context, profileProvider);
-                                },
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),

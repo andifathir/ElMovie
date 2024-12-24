@@ -108,61 +108,75 @@ class _CameraViewState extends State<CameraView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Review Film', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.black,
-      ),
-      backgroundColor: Colors.black,
-      body: ListView.builder(
-        itemCount: _capturedMediaList.length,
-        itemBuilder: (context, index) {
-          final mediaFile = _capturedMediaList[index];
-          final isVideo = mediaFile.path.endsWith('.mp4');
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/BG_BELAKANG_MENU_PROFILE.png'), // Ganti dengan path aset Anda
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          children: [
+            AppBar(
+              title: Text('Review Film', style: TextStyle(color: Colors.white)),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _capturedMediaList.length,
+                itemBuilder: (context, index) {
+                  final mediaFile = _capturedMediaList[index];
+                  final isVideo = mediaFile.path.endsWith('.mp4');
 
-          return Card(
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            color: Colors.grey[900],
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.black,
-                    ),
-                    child: isVideo
-                        ? _videoController != null && _videoController!.value.isInitialized
-                            ? GestureDetector(
-                                onTap: _togglePlayPause,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: VideoPlayer(_videoController!),
-                                ),
-                              )
-                            : Center(child: CircularProgressIndicator())
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.file(
-                              mediaFile,
-                              fit: BoxFit.cover,
+                  return Card(
+                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    color: Colors.grey[900]?.withOpacity(0.8),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 200,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.black,
                             ),
+                            child: isVideo
+                                ? _videoController != null && _videoController!.value.isInitialized
+                                    ? GestureDetector(
+                                        onTap: _togglePlayPause,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: VideoPlayer(_videoController!),
+                                        ),
+                                      )
+                                    : Center(child: CircularProgressIndicator())
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.file(
+                                      mediaFile,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                           ),
-                  ),
-                  SizedBox(height: 12),
-                  Text(
-                    _reviews[index],
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ],
+                          SizedBox(height: 12),
+                          Text(
+                            _reviews[index],
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
-          );
-        },
+          ],
+        ),
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
