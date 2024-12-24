@@ -36,7 +36,7 @@ class MinimalExample extends StatelessWidget {
           screen: const CatatanView(),
           item: ItemConfig(
             icon: const Icon(Icons.library_books),
-            title: "Catatan",
+            title: "Watch Lists",
           ),
         ),
         PersistentTabConfig(

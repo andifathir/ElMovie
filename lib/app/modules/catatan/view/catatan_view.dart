@@ -20,7 +20,7 @@ class CatatanView extends GetView<CatatanController> {
           return StatefulBuilder(
             builder: (context, setState) {
               return AlertDialog(
-                title: const Text('Tambah Catatan'),
+                title: const Text('Watch Lists'),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

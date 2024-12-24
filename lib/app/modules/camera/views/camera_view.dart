@@ -11,9 +11,12 @@ class CameraView extends StatefulWidget {
 
 class _CameraViewState extends State<CameraView> {
   final List<File> _capturedMediaList = [];
-  final List<String> _reviews = [];
+  final List<Map<String, dynamic>> _reviews = [];
   VideoPlayerController? _videoController;
   bool _isPlaying = false;
+
+  // Untuk menyimpan rating yang dipilih
+  double selectedRating = 1.0;
 
   Future<void> _captureImage() async {
     final ImagePicker picker = ImagePicker();
@@ -44,44 +47,94 @@ class _CameraViewState extends State<CameraView> {
   }
 
   Future<void> _showReviewDialog(File mediaFile) async {
+    final TextEditingController titleController = TextEditingController();
     final TextEditingController reviewController = TextEditingController();
 
-    await showDialog<void>(context: context, builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.black,
-        title: Text('Add a Review', style: TextStyle(color: Colors.white)),
-        content: TextField(
-          controller: reviewController,
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            hintText: 'Enter your review...',
-            hintStyle: TextStyle(color: Colors.grey),
-            border: OutlineInputBorder(),
+    await showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.black,
+          title: Text('Add a Review', style: TextStyle(color: Colors.white)),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: titleController,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Enter movie title...',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Text('Rating:', style: TextStyle(color: Colors.white)),
+                  SizedBox(width: 8),
+                  DropdownButton<double>(
+                    value: selectedRating,
+                    dropdownColor: Colors.black,
+                    style: TextStyle(color: Colors.white),
+                    items: [
+                      for (var i = 1; i <= 5; i++)
+                        DropdownMenuItem(
+                          value: i.toDouble(),
+                          child: Text('$i'),
+                        ),
+                    ],
+                    onChanged: (double? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          selectedRating = newValue;
+                        });
+                      }
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              TextField(
+                controller: reviewController,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Enter your review...',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ],
           ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Cancel', style: TextStyle(color: Colors.white)),
-          ),
-          TextButton(
-            onPressed: () {
-              final reviewText = reviewController.text;
-              if (reviewText.isNotEmpty) {
-                setState(() {
-                  _capturedMediaList.add(mediaFile);
-                  _reviews.add(reviewText);
-                });
+          actions: [
+            TextButton(
+              onPressed: () {
                 Navigator.of(context).pop();
-              }
-            },
-            child: Text('Upload', style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      );
-    });
+              },
+              child: Text('Cancel', style: TextStyle(color: Colors.white)),
+            ),
+            TextButton(
+              onPressed: () {
+                final titleText = titleController.text;
+                final reviewText = reviewController.text;
+                if (titleText.isNotEmpty && reviewText.isNotEmpty) {
+                  setState(() {
+                    _capturedMediaList.add(mediaFile);
+                    _reviews.add({
+                      'title': titleText,
+                      'rating': selectedRating,
+                      'review': reviewText,
+                    });
+                  });
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text('Upload', style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _togglePlayPause() {
@@ -111,7 +164,8 @@ class _CameraViewState extends State<CameraView> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/BG_BELAKANG_MENU_PROFILE.png'), // Ganti dengan path aset Anda
+            image: AssetImage(
+                'assets/BG_BELAKANG_MENU_PROFILE.png'), // Ganti dengan path aset Anda
             fit: BoxFit.cover,
           ),
         ),
@@ -128,11 +182,13 @@ class _CameraViewState extends State<CameraView> {
                 itemBuilder: (context, index) {
                   final mediaFile = _capturedMediaList[index];
                   final isVideo = mediaFile.path.endsWith('.mp4');
+                  final review = _reviews[index];
 
                   return Card(
                     margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     color: Colors.grey[900]?.withOpacity(0.8),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
@@ -146,11 +202,13 @@ class _CameraViewState extends State<CameraView> {
                               color: Colors.black,
                             ),
                             child: isVideo
-                                ? _videoController != null && _videoController!.value.isInitialized
+                                ? _videoController != null &&
+                                        _videoController!.value.isInitialized
                                     ? GestureDetector(
                                         onTap: _togglePlayPause,
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: VideoPlayer(_videoController!),
                                         ),
                                       )
@@ -165,8 +223,19 @@ class _CameraViewState extends State<CameraView> {
                           ),
                           SizedBox(height: 12),
                           Text(
-                            _reviews[index],
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                            review['title'],
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Rating: ${review['rating']}',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          ),
+                          Text(
+                            review['review'],
+                            style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                         ],
                       ),
