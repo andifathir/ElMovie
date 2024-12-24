@@ -110,43 +110,56 @@ class _CameraViewState extends State<CameraView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Review Film', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.black, // Menambahkan warna latar belakang app bar
+        backgroundColor: Colors.black,
       ),
-      backgroundColor: Colors.black, // Menambahkan warna latar belakang Scaffold
+      backgroundColor: Colors.black,
       body: ListView.builder(
         itemCount: _capturedMediaList.length,
         itemBuilder: (context, index) {
           final mediaFile = _capturedMediaList[index];
           final isVideo = mediaFile.path.endsWith('.mp4');
 
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                isVideo
-                    ? _videoController != null &&
-                            _videoController!.value.isInitialized
-                        ? Container(
-                            height: 200,
-                            width: 200,
-                            child: GestureDetector(
-                              onTap: _togglePlayPause,
-                              child: VideoPlayer(_videoController!),
+          return Card(
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            color: Colors.grey[900],
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.black,
+                    ),
+                    child: isVideo
+                        ? _videoController != null && _videoController!.value.isInitialized
+                            ? GestureDetector(
+                                onTap: _togglePlayPause,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: VideoPlayer(_videoController!),
+                                ),
+                              )
+                            : Center(child: CircularProgressIndicator())
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.file(
+                              mediaFile,
+                              fit: BoxFit.cover,
                             ),
-                          )
-                        : Center(child: CircularProgressIndicator())
-                    : Image.file(
-                        mediaFile,
-                        height: 200, // Set the height of the image to match the video
-                        width: 200, // Set the width to match the video
-                        fit: BoxFit.cover,
-                      ),
-                SizedBox(height: 16), // Increase the gap between media items
-                Text(
-                  _reviews[index],
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ],
+                          ),
+                  ),
+                  SizedBox(height: 12),
+                  Text(
+                    _reviews[index],
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ],
+              ),
             ),
           );
         },
@@ -158,14 +171,14 @@ class _CameraViewState extends State<CameraView> {
             onPressed: _captureImage,
             tooltip: 'Capture Image',
             child: Icon(Icons.camera_alt),
-            backgroundColor: Colors.purple, // Menambahkan warna tombol FAB
+            backgroundColor: Colors.purple,
           ),
           SizedBox(height: 16),
           FloatingActionButton(
             onPressed: _captureVideo,
             tooltip: 'Capture Video',
             child: Icon(Icons.videocam),
-            backgroundColor: Colors.purple, // Menambahkan warna tombol FAB
+            backgroundColor: Colors.purple,
           ),
         ],
       ),
