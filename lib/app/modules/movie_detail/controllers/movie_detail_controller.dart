@@ -18,7 +18,7 @@ class MovieDetailController extends GetxController {
   }
 
   /// Toggle favorite status
-  Future<void> toggleFavorite(String movieId) async {
+  Future<void> toggleFavorite(String movieId, String movieName) async {
     final uid = auth.currentUser?.uid;
     if (uid == null) {
       Get.snackbar('Error', 'User not logged in.');
@@ -41,7 +41,10 @@ class MovieDetailController extends GetxController {
           .doc(uid)
           .collection('Favorites')
           .doc(movieId)
-          .set({'movieId': movieId});
+          .set({
+        'movieId': movieId,
+        'movieName': movieName, // Storing the movie name
+      });
       await firestore
           .collection('users')
           .doc(uid)
@@ -54,7 +57,7 @@ class MovieDetailController extends GetxController {
   }
 
   /// Toggle dislike status
-  Future<void> toggleDislike(String movieId) async {
+  Future<void> toggleDislike(String movieId, String movieName) async {
     final uid = auth.currentUser?.uid;
     if (uid == null) {
       Get.snackbar('Error', 'User not logged in.');
@@ -77,7 +80,10 @@ class MovieDetailController extends GetxController {
           .doc(uid)
           .collection('Dislikes')
           .doc(movieId)
-          .set({'movieId': movieId});
+          .set({
+        'movieId': movieId,
+        'movieName': movieName, // Storing the movie name
+      });
       await firestore
           .collection('users')
           .doc(uid)
@@ -87,5 +93,30 @@ class MovieDetailController extends GetxController {
       isDisliked.value = true;
       isFavorite.value = false;
     }
+  }
+
+  /// Load initial favorite/dislike status
+  Future<void> loadMovieStatus(String movieId) async {
+    final uid = auth.currentUser?.uid;
+    if (uid == null) {
+      Get.snackbar('Error', 'User not logged in.');
+      return;
+    }
+
+    final favoriteDoc = await firestore
+        .collection('users')
+        .doc(uid)
+        .collection('Favorites')
+        .doc(movieId)
+        .get();
+    final dislikeDoc = await firestore
+        .collection('users')
+        .doc(uid)
+        .collection('Dislikes')
+        .doc(movieId)
+        .get();
+
+    isFavorite.value = favoriteDoc.exists;
+    isDisliked.value = dislikeDoc.exists;
   }
 }

@@ -16,6 +16,8 @@ abstract class Routes {
   static const LOCATION = _Paths.LOCATION;
   static const CONNECTION = _Paths.CONNECTION;
   static const REVIEW = _Paths.REVIEW;
+  static const FAVORITE = _Paths.FAVORITE;
+  static const DISLIKE = _Paths.DISLIKE;
 }
 
 abstract class _Paths {
@@ -33,4 +35,6 @@ abstract class _Paths {
   static const LOCATION = '/location';
   static const CONNECTION = '/connection';
   static const REVIEW = '/review';
+  static const FAVORITE = '/favorite';
+  static const DISLIKE = '/dislike';
 }

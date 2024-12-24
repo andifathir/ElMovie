@@ -4,6 +4,10 @@ import '../modules/catatan/bindings/catatan_bindings.dart';
 import '../modules/catatan/view/catatan_view.dart';
 import '../modules/connection/bindings/connection_binding.dart';
 import '../modules/connection/views/connection_view.dart';
+import '../modules/dislike/bindings/dislike_binding.dart';
+import '../modules/dislike/views/dislike_view.dart';
+import '../modules/favorite/bindings/favorite_binding.dart';
+import '../modules/favorite/views/favorite_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/location/bindings/location_binding.dart';
@@ -93,6 +97,16 @@ class AppPages {
       name: _Paths.REVIEW,
       page: () => const ReviewView(),
       binding: ReviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAVORITE,
+      page: () => const FavoriteView(),
+      binding: FavoriteBinding(),
+    ),
+    GetPage(
+      name: _Paths.DISLIKE,
+      page: () => const DislikeView(),
+      binding: DislikeBinding(),
     ),
   ];
 }

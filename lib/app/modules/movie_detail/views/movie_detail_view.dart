@@ -134,7 +134,10 @@ class MovieDetailView extends GetView<MovieDetailController> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Obx(() => ElevatedButton.icon(
-                        onPressed: () => controller.toggleFavorite(movie.id),
+                        onPressed: () => controller.toggleFavorite(
+                          movie.id,
+                          movie.title,
+                        ),
                         icon: Icon(
                           Icons.favorite,
                           color: controller.isFavorite.value
@@ -156,7 +159,10 @@ class MovieDetailView extends GetView<MovieDetailController> {
                         ),
                       )),
                   Obx(() => ElevatedButton.icon(
-                        onPressed: () => controller.toggleDislike(movie.id),
+                        onPressed: () => controller.toggleDislike(
+                          movie.id,
+                          movie.title,
+                        ),
                         icon: Icon(
                           Icons.thumb_down,
                           color: controller.isDisliked.value
@@ -184,7 +190,7 @@ class MovieDetailView extends GetView<MovieDetailController> {
               // Action Buttons
               ElevatedButton.icon(
                 onPressed: () {
-                  Get.toNamed(Routes.CAMERA, arguments: movie);
+                  Get.toNamed(Routes.REVIEW, arguments: movie);
                 },
                 icon: Icon(Icons.rate_review),
                 label: Text('Add Review'),
