@@ -16,6 +16,7 @@ class NavbarView extends GetView<NavbarController> {
   Widget build(BuildContext context) {
     return MaterialApp(
       // title: "Persistent Bottom Navigation Bar Demo",
+      debugShowCheckedModeBanner: false,
       home: MinimalExample(),
     );
   }
