@@ -33,6 +33,7 @@ class MovieDetailView extends GetView<MovieDetailController> {
                 ),
                 backgroundColor: Colors.black.withOpacity(0.7),
                 elevation: 0,
+                iconTheme: IconThemeData(color: Colors.white),
               ),
               // Main Content
               Expanded(

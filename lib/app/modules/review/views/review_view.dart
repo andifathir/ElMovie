@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import '../controllers/review_controller.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ReviewView extends GetView<ReviewController> {
   const ReviewView({super.key});
@@ -22,10 +22,24 @@ class ReviewView extends GetView<ReviewController> {
         ),
         Scaffold(
           appBar: AppBar(
-            title: const Text('Review Film',
-                style: TextStyle(color: Colors.white)),
+            title: const Text(
+              'Review Film',
+              style: TextStyle(
+                fontSize: 22, // Increased font size
+                fontWeight: FontWeight.bold, // Make the text bold
+                color: Colors.white,
+              ),
+            ),
             backgroundColor: Colors.transparent,
             elevation: 0,
+            actions: [
+              IconButton(
+                onPressed: () => _showAddReviewDialog(context),
+                icon: const Icon(Icons.add, color: Colors.white),
+                tooltip: 'Add Review', // Tooltip for better UX
+              ),
+              const SizedBox(width: 10), // Space between the icon and the edge
+            ],
           ),
           backgroundColor: Colors.transparent,
           body: Obx(() {
@@ -43,36 +57,91 @@ class ReviewView extends GetView<ReviewController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (review['imagePath'] != '')
-                        review['imagePath'].endsWith('.mp4')
-                            ? GestureDetector(
-                                onTap: () {
-                                  Get.to(() => VideoPlayerScreen(
-                                      filePath: review['imagePath']));
-                                },
-                                child: Container(
-                                  height: 200,
-                                  decoration: BoxDecoration(
+                      Stack(
+                        children: [
+                          if (review['imagePath'] != '')
+                            review['imagePath'].endsWith('.mp4')
+                                ? GestureDetector(
+                                    onTap: () {
+                                      Get.to(() => VideoPlayerScreen(
+                                          filePath: review['imagePath']));
+                                    },
+                                    child: Container(
+                                      height: 200,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            const BorderRadius.vertical(
+                                                top: Radius.circular(12)),
+                                        color: Colors.black,
+                                      ),
+                                      child: const Center(
+                                        child: Icon(Icons.play_circle_fill,
+                                            color: Colors.white, size: 50),
+                                      ),
+                                    ),
+                                  )
+                                : ClipRRect(
                                     borderRadius: const BorderRadius.vertical(
                                         top: Radius.circular(12)),
-                                    color: Colors.black,
+                                    child: Image.file(
+                                      File(review['imagePath']),
+                                      height: 200,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  child: const Center(
-                                    child: Icon(Icons.play_circle_fill,
-                                        color: Colors.white, size: 50),
+                          Positioned(
+                            top:
+                                10, // Positioning the button just below the image
+                            right: 10, // Aligning to the top-right corner
+                            child: PopupMenuButton<String>(
+                              icon: Icon(Icons.more_vert, color: Colors.white),
+                              onSelected: (value) {
+                                if (value == 'edit') {
+                                  _showEditReviewDialog(
+                                    context,
+                                    review['id'],
+                                    review['movieName'],
+                                    review['rating'],
+                                    review['review'],
+                                    review['imagePath'],
+                                  );
+                                } else if (value == 'delete') {
+                                  controller.deleteReview(review['id']);
+                                }
+                              },
+                              itemBuilder: (context) {
+                                return [
+                                  PopupMenuItem<String>(
+                                    value: 'edit',
+                                    child: Row(
+                                      children: const [
+                                        Icon(Icons.edit, color: Colors.blue),
+                                        SizedBox(width: 8),
+                                        Text('Edit',
+                                            style:
+                                                TextStyle(color: Colors.blue)),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              )
-                            : ClipRRect(
-                                borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(12)),
-                                child: Image.file(
-                                  File(review['imagePath']),
-                                  height: 200,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
+                                  PopupMenuItem<String>(
+                                    value: 'delete',
+                                    child: Row(
+                                      children: const [
+                                        Icon(Icons.delete, color: Colors.red),
+                                        SizedBox(width: 8),
+                                        Text('Delete',
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                      ],
+                                    ),
+                                  ),
+                                ];
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(12),
                         child: Column(
@@ -87,9 +156,17 @@ class ReviewView extends GetView<ReviewController> {
                               ),
                             ),
                             const SizedBox(height: 4),
-                            Text(
-                              'Rating: ${review['rating'] ?? ''}/5',
-                              style: TextStyle(color: Colors.white70),
+                            // Rating Stars
+                            Row(
+                              children: List.generate(5, (index) {
+                                return Icon(
+                                  index < (review['rating']?.toInt() ?? 0)
+                                      ? Icons.star
+                                      : Icons.star_border,
+                                  color: Colors.yellow,
+                                  size: 18,
+                                );
+                              }),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -99,219 +176,214 @@ class ReviewView extends GetView<ReviewController> {
                           ],
                         ),
                       ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.edit, color: Colors.blue),
-                            onPressed: () {
-                              _showEditReviewDialog(
-                                context,
-                                review['id'],
-                                review['movieName'],
-                                review['rating'],
-                                review['review'],
-                                review['imagePath'],
-                              );
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.delete, color: Colors.red),
-                            onPressed: () {
-                              controller.deleteReview(review['id']);
-                            },
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 );
               },
             );
           }),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => _showAddReviewDialog(context),
-            child: const Icon(Icons.add),
-          ),
         ),
       ],
     );
   }
 
+  // Inside your ReviewView widget
+// Inside your ReviewView widget
   void _showAddReviewDialog(BuildContext context) {
     final movieNameController = TextEditingController();
-    final ratingController = TextEditingController();
     final reviewController = TextEditingController();
-    final player = AudioPlayer();
     File? selectedMedia;
+    double rating = 0.0; // Store the selected rating
 
+    // Use a StatefulWidget to allow the UI to rebuild when rating changes
     Get.dialog(
-      AlertDialog(
-        title: Text("Add Review"),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: movieNameController,
-                decoration: InputDecoration(labelText: "Movie Name"),
-              ),
-              TextField(
-                controller: ratingController,
-                decoration: InputDecoration(labelText: "Rating (out of 5)"),
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(
-                      r'^[0-9]$|^[0-4](\.[0-9])?$|^5$')) // Accepts values from 0 to 5
+      StatefulBuilder(
+        builder: (context, setState) {
+          return AlertDialog(
+            title: Text("Add Review"),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: movieNameController,
+                    decoration: InputDecoration(labelText: "Movie Name"),
+                  ),
+                  TextField(
+                    controller: reviewController,
+                    decoration: InputDecoration(labelText: "Review"),
+                    maxLines: 3,
+                  ),
+                  const SizedBox(height: 10),
+                  // Rating text above the stars, updates as rating changes
+                  Text("Rating: ${rating.toStringAsFixed(1)}"),
+                  const SizedBox(height: 5),
+                  // Smaller star rating
+                  RatingBar.builder(
+                    initialRating: rating,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemSize: 30, // Smaller stars
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    onRatingUpdate: (newRating) {
+                      setState(() {
+                        rating = newRating; // Update rating value
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      File? media = await controller.pickImageFromGallery();
+                      if (media != null) {
+                        selectedMedia = media;
+                      }
+                    },
+                    icon: Icon(Icons.photo),
+                    label: Text("Pick from Gallery"),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      File? media = await controller.takePhotoOrVideo();
+                      if (media != null) {
+                        selectedMedia = media;
+                      }
+                    },
+                    icon: Icon(Icons.camera_alt),
+                    label: Text("Take Photo/Video"),
+                  ),
                 ],
-                onChanged: (value) {
-                  if (double.tryParse(value) != null) {
-                    double rating = double.parse(value);
-                    if (rating > 5) {
-                      ratingController.text = '5'; // Limit rating to 5
-                      ratingController.selection = TextSelection.collapsed(
-                          offset: ratingController
-                              .text.length); // Move cursor to end
-                    }
-                  }
-                },
               ),
-              TextField(
-                controller: reviewController,
-                decoration: InputDecoration(labelText: "Review"),
-                maxLines: 3,
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  File? media = await controller.pickImageFromGallery();
-                  if (media != null) {
-                    selectedMedia = media;
-                    // Get.snackbar('Media Selected', 'Selected from Gallery');
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  if (movieNameController.text.isEmpty ||
+                      reviewController.text.isEmpty ||
+                      selectedMedia == null) {
+                    Get.snackbar('Error', 'All fields and media are required!');
+                    return;
                   }
+                  controller.addReview(
+                    movieNameController.text,
+                    rating,
+                    reviewController.text,
+                    selectedMedia,
+                  );
+                  Get.back();
                 },
-                icon: Icon(Icons.photo),
-                label: Text("Pick from Gallery"),
+                child: Text("Add"),
               ),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  File? media = await controller.takePhotoOrVideo();
-                  if (media != null) {
-                    selectedMedia = media;
-                    // Get.snackbar('Media Selected', 'Captured from Camera');
-                  }
+              TextButton(
+                onPressed: () {
+                  Get.back();
                 },
-                icon: Icon(Icons.camera_alt),
-                label: Text("Take Photo/Video"),
+                child: Text("Cancel"),
               ),
             ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              if (movieNameController.text.isEmpty ||
-                  ratingController.text.isEmpty ||
-                  reviewController.text.isEmpty ||
-                  selectedMedia == null) {
-                Get.snackbar('Error', 'All fields and media are required!');
-                return;
-              }
-              controller.addReview(
-                movieNameController.text,
-                double.tryParse(ratingController.text) ?? 0.0,
-                reviewController.text,
-                selectedMedia,
-              );
-              Get.back();
-              player.play(AssetSource('success.mp3'));
-            },
-            child: Text("Add"),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: Text("Cancel"),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 
+// Similarly update the edit review dialog
   void _showEditReviewDialog(BuildContext context, String id, String? movieName,
       double? rating, String? reviewText, String? imagePath) {
     final movieNameController = TextEditingController(text: movieName);
-    final ratingController =
-        TextEditingController(text: rating?.toStringAsFixed(1));
     final reviewController = TextEditingController(text: reviewText);
-    final player = AudioPlayer();
     File? selectedMedia = imagePath != null ? File(imagePath) : null;
 
     Get.dialog(
-      AlertDialog(
-        title: Text("Edit Review"),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: movieNameController,
-                decoration: InputDecoration(labelText: "Movie Name"),
+      StatefulBuilder(
+        builder: (context, setState) {
+          return AlertDialog(
+            title: Text("Edit Review"),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: movieNameController,
+                    decoration: InputDecoration(labelText: "Movie Name"),
+                  ),
+                  TextField(
+                    controller: reviewController,
+                    decoration: InputDecoration(labelText: "Review"),
+                    maxLines: 3,
+                  ),
+                  const SizedBox(height: 10),
+                  // Rating text above the stars, updates as rating changes
+                  Text("Rating: ${rating?.toStringAsFixed(1) ?? '0.0'}"),
+                  const SizedBox(height: 5),
+                  // Smaller star rating
+                  RatingBar.builder(
+                    initialRating: rating ?? 0.0,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemSize: 30, // Smaller stars
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    onRatingUpdate: (newRating) {
+                      setState(() {
+                        rating = newRating; // Update rating value
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      File? media = await controller.pickImageFromGallery();
+                      if (media != null) {
+                        selectedMedia = media;
+                        Get.snackbar('Media Updated', 'Selected new media');
+                      }
+                    },
+                    icon: Icon(Icons.photo),
+                    label: Text("Pick New Media"),
+                  ),
+                ],
               ),
-              TextField(
-                controller: ratingController,
-                decoration: InputDecoration(labelText: "Rating (out of 5)"),
-                keyboardType: TextInputType.number,
-              ),
-              TextField(
-                controller: reviewController,
-                decoration: InputDecoration(labelText: "Review"),
-                maxLines: 3,
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  File? media = await controller.pickImageFromGallery();
-                  if (media != null) {
-                    selectedMedia = media;
-                    Get.snackbar('Media Updated', 'Selected new media');
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  if (movieNameController.text.isEmpty ||
+                      reviewController.text.isEmpty) {
+                    Get.snackbar('Error', 'All fields are required!');
+                    return;
                   }
+                  controller.updateReview(
+                    id,
+                    movieNameController.text,
+                    rating ?? 0.0,
+                    reviewController.text,
+                    selectedMedia,
+                  );
+                  Get.back();
                 },
-                icon: Icon(Icons.photo),
-                label: Text("Pick New Media"),
+                child: Text("Update"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text("Cancel"),
               ),
             ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              if (movieNameController.text.isEmpty ||
-                  ratingController.text.isEmpty ||
-                  reviewController.text.isEmpty) {
-                Get.snackbar('Error', 'All fields are required!');
-                return;
-              }
-              controller.updateReview(
-                id,
-                movieNameController.text,
-                double.tryParse(ratingController.text) ?? 0.0,
-                reviewController.text,
-                selectedMedia,
-              );
-              Get.back();
-              player.play(AssetSource('success.mp3'));
-            },
-            child: Text("Update"),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: Text("Cancel"),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
