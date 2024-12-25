@@ -66,10 +66,10 @@ class ReviewController extends GetxController {
           .doc(uid)
           .collection('Reviews')
           .add(data);
-      Get.snackbar('Success', 'Review added successfully.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Get.theme.primaryColor,
-          colorText: Get.theme.colorScheme.onPrimary);
+      // Get.snackbar('Success', 'Review added successfully.',
+      //     snackPosition: SnackPosition.BOTTOM,
+      //     backgroundColor: Get.theme.primaryColor,
+      //     colorText: Get.theme.colorScheme.onPrimary);
     } else {
       final List localData = box.read('localReviews') ?? [];
       localData.add(data);

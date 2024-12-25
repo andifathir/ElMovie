@@ -16,7 +16,8 @@ class MovieDetailWebView extends GetView<MovieDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("WebView"),
+          title: const Text("WebView", style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.black,
         ),
         body: WebViewWidget(
           controller: controller.webViewController(movie.imdbLink),

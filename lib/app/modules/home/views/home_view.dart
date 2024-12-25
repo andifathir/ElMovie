@@ -125,46 +125,65 @@ class HomeView extends GetView<HomeController> {
                   itemBuilder: (context, index) {
                     final movie = controller.movies[index];
                     return Card(
+                      elevation: 5,
+                      shadowColor: Colors.black54,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       color: Colors.transparent,
                       margin: const EdgeInsets.all(8),
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.all(10),
-                        title: Text(
-                          movie.title,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Description: ${movie.description}',
-                                style: const TextStyle(color: Colors.white)),
-                            Text('Year: ${movie.year}',
-                                style: const TextStyle(
-                                    color: Color.fromARGB(255, 236, 137, 0))),
-                            Text('Rating: ${movie.rating}',
-                                style: const TextStyle(
-                                    color: Color.fromARGB(255, 236, 137, 0))),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
+                            ),
                           ],
                         ),
-                        leading: SizedBox(
-                          width: 100,
-                          height: 150,
-                          child: movie.thumbnail.isNotEmpty
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(1.0),
-                                  child: Image.network(
-                                    movie.thumbnail,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : const Icon(Icons.image, size: 100),
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.all(10),
+                          title: Text(
+                            movie.title,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.white),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Description: ${movie.description}',
+                                  style: const TextStyle(color: Colors.white)),
+                              Text('Year: ${movie.year}',
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 236, 137, 0))),
+                              Text('Rating: ${movie.rating}',
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 236, 137, 0))),
+                            ],
+                          ),
+                          leading: SizedBox(
+                            width: 100,
+                            height: 150,
+                            child: movie.thumbnail.isNotEmpty
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.network(
+                                      movie.thumbnail,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : const Icon(Icons.image, size: 100),
+                          ),
+                          onTap: () {
+                            Get.toNamed(Routes.MOVIE_DETAILS, arguments: movie);
+                          },
                         ),
-                        onTap: () {
-                          Get.toNamed(Routes.MOVIE_DETAILS, arguments: movie);
-                        },
                       ),
                     );
                   },

@@ -12,7 +12,8 @@
     <application
         android:label="ElMovie"
         android:name="${applicationName}"
-        android:icon="@mipmap/elmovie_launcher">
+        android:icon="@mipmap/elmovie_launcher"
+    >
 
 
         <activity

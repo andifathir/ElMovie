@@ -28,126 +28,175 @@ class ProfileView extends GetView<ProfileController> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 100),
-                  Obx(() => GestureDetector(
-                        onTap: () async {
-                          await profileController.pickProfileImage();
-                        },
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundImage: profileController
-                                      .profileImage.value !=
-                                  null
-                              ? FileImage(profileController.profileImage.value!)
-                              : (profileController.profileData['imagePath'] !=
-                                          null &&
-                                      profileController
-                                          .profileData['imagePath'].isNotEmpty
-                                  ? FileImage(File(profileController
-                                      .profileData['imagePath']))
-                                  : null),
-                          child: profileController.profileImage.value == null &&
-                                  (profileController.profileData['imagePath'] ==
-                                          null ||
-                                      profileController
-                                          .profileData['imagePath'].isEmpty)
-                              ? const Icon(Icons.person,
-                                  size: 50, color: Colors.white)
-                              : null,
-                        ),
-                      )),
-                  const SizedBox(height: 20),
-                  Obx(() => Text(
-                        profileController.profileData['username'] ?? 'No Name',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )),
-                  IconButton(
-                    icon: const Icon(Icons.edit, color: Colors.white, size: 20),
-                    onPressed: () {
-                      _showEditDialog(
-                        context,
-                        'Edit Username',
-                        'Username',
-                        profileController.profileData['username'] ?? '',
-                        (value) {
-                          profileController.updateProfile(
-                              value,
-                              profileController.profileData['favoriteGenre'] ??
-                                  '');
-                        },
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 30),
-                  const Text(
-                    'Genre Preference',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Obx(() => Text(
-                        profileController.profileData['favoriteGenre'] ??
-                            'No Genre',
-                        style: const TextStyle(
-                          color: Colors.white70,
-                          fontSize: 16,
-                        ),
-                      )),
-                  IconButton(
-                    icon: const Icon(Icons.edit, color: Colors.white, size: 20),
-                    onPressed: () {
-                      _showEditDialog(
-                        context,
-                        'Edit Favorite Genre',
-                        'Favorite Genre',
-                        profileController.profileData['favoriteGenre'] ?? '',
-                        (value) {
-                          profileController.updateProfile(
-                              profileController.profileData['username'] ?? '',
-                              value);
-                        },
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 30),
-                  const SizedBox(height: 30),
-                  _buildActionButton('Watchlist', () {
-                    Get.toNamed(
-                        '/CatatanView'); // Navigate to the Watchlist page
-                  }),
-                  const SizedBox(height: 10),
-                  _buildActionButton('Favorites', () {
-                    Get.toNamed('/favorite'); // Navigate to the Favorites page
-                  }),
-                  const SizedBox(height: 10),
-                  _buildActionButton('Disliked Movies', () {
-                    Get.toNamed(
-                        '/dislike'); // Navigate to the Disliked Movies page
-                  }),
-                  const SizedBox(height: 30),
-                  Center(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.red,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight:
+                      MediaQuery.of(context).size.height - kToolbarHeight,
+                ),
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 100),
+                      Row(
+                        children: [
+                          Obx(() => GestureDetector(
+                                onTap: () async {
+                                  await profileController.pickProfileImage();
+                                },
+                                child: CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage: profileController
+                                              .profileImage.value !=
+                                          null
+                                      ? FileImage(
+                                          profileController.profileImage.value!)
+                                      : (profileController.profileData[
+                                                      'imagePath'] !=
+                                                  null &&
+                                              profileController
+                                                  .profileData['imagePath']
+                                                  .isNotEmpty
+                                          ? FileImage(File(profileController
+                                              .profileData['imagePath']))
+                                          : null),
+                                  child: profileController.profileImage.value ==
+                                              null &&
+                                          (profileController.profileData[
+                                                      'imagePath'] ==
+                                                  null ||
+                                              profileController
+                                                  .profileData['imagePath']
+                                                  .isEmpty)
+                                      ? const Icon(Icons.person,
+                                          size: 50, color: Colors.white)
+                                      : null,
+                                ),
+                              )),
+                          const SizedBox(width: 25),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Obx(() => Text(
+                                          profileController
+                                                  .profileData['username'] ??
+                                              'No Name',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                        )),
+                                    IconButton(
+                                      icon: const Icon(Icons.edit,
+                                          color: Colors.white, size: 20),
+                                      onPressed: () {
+                                        _showEditDialog(
+                                          context,
+                                          'Edit Username',
+                                          'Username',
+                                          profileController
+                                                  .profileData['username'] ??
+                                              '',
+                                          (value) {
+                                            profileController.updateProfile(
+                                                value,
+                                                profileController.profileData[
+                                                        'favoriteGenre'] ??
+                                                    '');
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      onPressed: () {
-                        _showLogoutConfirmationDialog(context);
-                      },
-                      child: const Text('Logout'),
-                    ),
+                      const SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Genre Preference',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.edit,
+                                color: Colors.white, size: 20),
+                            onPressed: () {
+                              _showEditDialog(
+                                context,
+                                'Edit Favorite Genre',
+                                'Favorite Genre',
+                                profileController
+                                        .profileData['favoriteGenre'] ??
+                                    '',
+                                (value) {
+                                  profileController.updateProfile(
+                                      profileController
+                                              .profileData['username'] ??
+                                          '',
+                                      value);
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Obx(() => Text(
+                            profileController.profileData['favoriteGenre'] ??
+                                'No Genre',
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                            ),
+                          )),
+                      const SizedBox(height: 50),
+                      _buildActionButton('Watchlist', () {
+                        Get.toNamed(
+                            '/CatatanView'); // Navigate to the Watchlist page
+                      }),
+                      const SizedBox(height: 20),
+                      _buildActionButton('Favorites', () {
+                        Get.toNamed(
+                            '/favorite'); // Navigate to the Favorites page
+                      }),
+                      const SizedBox(height: 20),
+                      _buildActionButton('Disliked Movies', () {
+                        Get.toNamed(
+                            '/dislike'); // Navigate to the Disliked Movies page
+                      }),
+                      const SizedBox(height: 45),
+                      Center(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.red,
+                          ),
+                          onPressed: () {
+                            _showLogoutConfirmationDialog(context);
+                          },
+                          child: const Text('Logout'),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),

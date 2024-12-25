@@ -19,17 +19,17 @@ class CatatanView extends GetView<CatatanController> {
           return StatefulBuilder(
             builder: (context, setState) {
               return AlertDialog(
-                title: const Text('Tambah Catatan'),
+                title: const Text('Add List'),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
                       onChanged: (value) => judul = value,
-                      decoration: const InputDecoration(hintText: 'Judul'),
+                      decoration: const InputDecoration(hintText: 'Title'),
                     ),
                     TextField(
                       onChanged: (value) => deskripsi = value,
-                      decoration: const InputDecoration(hintText: 'Deskripsi'),
+                      decoration: const InputDecoration(hintText: 'Deskription'),
                     ),
                     GestureDetector(
                       onTap: () async {
@@ -75,11 +75,11 @@ class CatatanView extends GetView<CatatanController> {
                         player.play(AssetSource('success.mp3'));
                       }
                     },
-                    child: const Text('Simpan'),
+                    child: const Text('Save'),
                   ),
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Batal'),
+                    child: const Text('Cencel'),
                   ),
                 ],
               );
@@ -108,11 +108,11 @@ class CatatanView extends GetView<CatatanController> {
                   children: [
                     TextField(
                       controller: judulController,
-                      decoration: const InputDecoration(hintText: 'Judul'),
+                      decoration: const InputDecoration(hintText: 'Title'),
                     ),
                     TextField(
                       controller: deskripsiController,
-                      decoration: const InputDecoration(hintText: 'Deskripsi'),
+                      decoration: const InputDecoration(hintText: 'Deskription'),
                     ),
                     GestureDetector(
                       onTap: () async {
@@ -175,7 +175,7 @@ class CatatanView extends GetView<CatatanController> {
         ),
         Scaffold(
           appBar: AppBar(
-            title: const Text('Catatan', style: TextStyle(color: Colors.white)),
+            title: const Text('Watch List', style: TextStyle(color: Colors.white)),
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
@@ -185,42 +185,64 @@ class CatatanView extends GetView<CatatanController> {
               itemCount: controller.catatanList.length,
               itemBuilder: (context, index) {
                 final catatan = controller.catatanList[index];
-                return ListTile(
-                  title: Text(catatan['judul'] ?? 'No Title',
-                      style: TextStyle(color: Colors.white)),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(catatan['deskripsi'] ?? 'No Description',
-                          style: TextStyle(color: Colors.white)),
-                      Text(
-                        'Tanggal: ${catatan['tanggal'] ?? 'Tanggal tidak tersedia'}',
-                        style:
-                            const TextStyle(fontSize: 12, color: Colors.grey),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(16.0),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.4),
                       ),
-                    ],
-                  ),
-                  trailing: PopupMenuButton<String>(
-                    onSelected: (value) {
-                      if (value == 'edit') {
-                        showEditCatatanDialog(
-                            context,
-                            catatan['id'],
-                            catatan['judul'],
-                            catatan['deskripsi'],
-                            catatan['tanggal']);
-                      } else if (value == 'delete') {
-                        controller.hapusCatatan(catatan['id']);
-                      }
-                    },
-                    itemBuilder: (BuildContext context) {
-                      return [
-                        const PopupMenuItem<String>(
-                            value: 'edit', child: Text('Edit')),
-                        const PopupMenuItem<String>(
-                            value: 'delete', child: Text('Delete')),
-                      ];
-                    },
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        catatan['judul'] ?? 'No Title',
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            catatan['deskripsi'] ?? 'No Description',
+                            style: const TextStyle(color: Colors.white70),
+                          ),
+                          Text(
+                            'Tanggal: ${catatan['tanggal'] ?? 'Tanggal tidak tersedia'}',
+                            style: const TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      trailing: PopupMenuButton<String>(
+                        onSelected: (value) {
+                          if (value == 'edit') {
+                            showEditCatatanDialog(
+                                context,
+                                catatan['id'],
+                                catatan['judul'],
+                                catatan['deskripsi'],
+                                catatan['tanggal']);
+                          } else if (value == 'delete') {
+                            controller.hapusCatatan(catatan['id']);
+                          }
+                        },
+                        itemBuilder: (BuildContext context) {
+                          return [
+                            const PopupMenuItem<String>(
+                                value: 'edit', child: Text('Edit')),
+                            const PopupMenuItem<String>(
+                                value: 'delete', child: Text('Delete')),
+                          ];
+                        },
+                      ),
+                    ),
                   ),
                 );
               },

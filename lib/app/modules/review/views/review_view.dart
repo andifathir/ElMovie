@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import '../controllers/review_controller.dart';
@@ -157,6 +158,21 @@ class ReviewView extends GetView<ReviewController> {
                 controller: ratingController,
                 decoration: InputDecoration(labelText: "Rating (out of 5)"),
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(
+                      r'^[0-9]$|^[0-4](\.[0-9])?$|^5$')) // Accepts values from 0 to 5
+                ],
+                onChanged: (value) {
+                  if (double.tryParse(value) != null) {
+                    double rating = double.parse(value);
+                    if (rating > 5) {
+                      ratingController.text = '5'; // Limit rating to 5
+                      ratingController.selection = TextSelection.collapsed(
+                          offset: ratingController
+                              .text.length); // Move cursor to end
+                    }
+                  }
+                },
               ),
               TextField(
                 controller: reviewController,
@@ -169,7 +185,7 @@ class ReviewView extends GetView<ReviewController> {
                   File? media = await controller.pickImageFromGallery();
                   if (media != null) {
                     selectedMedia = media;
-                    Get.snackbar('Media Selected', 'Selected from Gallery');
+                    // Get.snackbar('Media Selected', 'Selected from Gallery');
                   }
                 },
                 icon: Icon(Icons.photo),
@@ -180,7 +196,7 @@ class ReviewView extends GetView<ReviewController> {
                   File? media = await controller.takePhotoOrVideo();
                   if (media != null) {
                     selectedMedia = media;
-                    Get.snackbar('Media Selected', 'Captured from Camera');
+                    // Get.snackbar('Media Selected', 'Captured from Camera');
                   }
                 },
                 icon: Icon(Icons.camera_alt),
