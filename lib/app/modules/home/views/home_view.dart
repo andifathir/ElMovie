@@ -3,20 +3,16 @@ import 'dart:io';
 import 'package:ElMovie/app/modules/home/controllers/home_controller.dart';
 import 'package:ElMovie/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:ElMovie/app/modules/profile/views/profile_view.dart';
-import 'package:ElMovie/app/modules/profile/providers/profile_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import '../../microphone/controllers/microphone_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
 
-  
-
   final int _selectedIndex = 0;
   final MicrophoneController microphoneController =
       Get.find<MicrophoneController>();
+  final TextEditingController searchController = TextEditingController();
 
   Widget _buildPage(int index) {
     switch (index) {
@@ -37,33 +33,6 @@ class HomeView extends GetView<HomeController> {
         ),
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundImage: controller.profileImage.value != null
-                      ? FileImage(controller.profileImage.value!)
-                      : (controller.profileData['imagePath'] != null &&
-                              controller
-                                  .profileData['imagePath'].isNotEmpty)
-                          ? FileImage(
-                              File(controller.profileData['imagePath']))
-                          : null,
-                  child: controller.profileImage.value == null &&
-                          (controller.profileData['imagePath'] == null ||
-                              controller
-                                  .profileData['imagePath'].isEmpty)
-                      ? const Icon(Icons.person, size: 50, color: Colors.white)
-                      : null,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       backgroundColor: Colors.transparent,
       body: Column(
@@ -72,16 +41,10 @@ class HomeView extends GetView<HomeController> {
             padding: const EdgeInsets.all(8.0),
             child: Obx(
               () {
-                // Controller for search input
-                final TextEditingController searchController =
-                    TextEditingController(
-                  text: microphoneController.text.value,
+                searchController.text = controller.searchQuery.value;
+                searchController.selection = TextSelection.fromPosition(
+                  TextPosition(offset: searchController.text.length),
                 );
-
-                // Handle input change
-                searchController.addListener(() {
-                  controller.searchQuery.value = searchController.text;
-                });
 
                 return TextField(
                   decoration: InputDecoration(
@@ -108,6 +71,9 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                   controller: searchController,
+                  onChanged: (value) {
+                    controller.searchQuery.value = value; // Trigger search
+                  },
                 );
               },
             ),

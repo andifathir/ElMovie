@@ -77,10 +77,10 @@ class CatatanController extends GetxController {
       final List localData = box.read('localCatatan') ?? [];
       localData.add(data);
       box.write('localCatatan', localData);
-      Get.snackbar('Offline', 'Catatan disimpan secara lokal.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Get.theme.hintColor,
-          colorText: Get.theme.colorScheme.onPrimary);
+      // Get.snackbar('Offline', 'Catatan disimpan secara lokal.',
+      //     snackPosition: SnackPosition.BOTTOM,
+      //     backgroundColor: Get.theme.hintColor,
+      //     colorText: Get.theme.colorScheme.onPrimary);
     }
   }
 

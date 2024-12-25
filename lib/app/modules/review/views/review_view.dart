@@ -353,6 +353,16 @@ class ReviewView extends GetView<ReviewController> {
                     icon: Icon(Icons.photo),
                     label: Text("Pick New Media"),
                   ),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      File? media = await controller.takePhotoOrVideo();
+                      if (media != null) {
+                        selectedMedia = media;
+                      }
+                    },
+                    icon: Icon(Icons.camera_alt),
+                    label: Text("Take Photo/Video"),
+                  ),
                 ],
               ),
             ),

@@ -47,7 +47,7 @@ class RegisterView extends GetView<AuthController> {
                     Text(
                       'Create Your Account',
                       style: TextStyle(
-                        fontSize: 36,
+                        fontSize: 34,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -86,34 +86,35 @@ class RegisterView extends GetView<AuthController> {
                           const SizedBox(height: 20),
                           // Password Field
                           Obx(() => TextFormField(
-                            controller: controller.passwordController,
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              labelStyle: TextStyle(color: Colors.white),
-                              filled: true,
-                              fillColor: Colors.white.withOpacity(0.1),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide.none,
-                              ),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  controller.isPasswordVisible.value
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: const Color(0xFF5963DC),
+                                controller: controller.passwordController,
+                                style: TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  filled: true,
+                                  fillColor: Colors.white.withOpacity(0.1),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      controller.isPasswordVisible.value
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: const Color(0xFF5963DC),
+                                    ),
+                                    onPressed: () {
+                                      controller.togglePasswordVisibility();
+                                    },
+                                  ),
                                 ),
-                                onPressed: () {
-                                  controller.togglePasswordVisibility();
-                                },
-                              ),
-                            ),
-                            obscureText: !controller.isPasswordVisible.value,
-                            validator: (value) => value!.length < 6
-                                ? 'Password must be at least 6 characters'
-                                : null,
-                          )),
+                                obscureText:
+                                    !controller.isPasswordVisible.value,
+                                validator: (value) => value!.length < 6
+                                    ? 'Password must be at least 6 characters'
+                                    : null,
+                              )),
                           const SizedBox(height: 20),
                           // Register Button
                           ElevatedButton(
@@ -128,7 +129,8 @@ class RegisterView extends GetView<AuthController> {
                             ),
                             child: Text(
                               'Register',
-                              style: TextStyle(fontSize: 16, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ),
                           const SizedBox(height: 20),

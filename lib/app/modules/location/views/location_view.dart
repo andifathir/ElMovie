@@ -10,21 +10,20 @@ class LocationView extends GetView<LocationController> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Background Image for the entire screen
         Positioned.fill(
           child: Image.asset(
-            'assets/BG_BELAKANG_HOME.png', // Background image for the entire screen
+            'assets/BG_BELAKANG_HOME.png',
             fit: BoxFit.cover,
           ),
         ),
         Scaffold(
-          backgroundColor: Colors.transparent, // Make the body transparent
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             title: const Text('Cinema Locations',
                 style: TextStyle(color: Colors.white)),
             centerTitle: true,
-            backgroundColor: Colors.transparent, // Make the AppBar transparent
-            elevation: 0, // Remove AppBar shadow
+            backgroundColor: Colors.transparent,
+            elevation: 0,
           ),
           body: Obx(() {
             if (controller.userPosition.value == null) {
@@ -41,83 +40,96 @@ class LocationView extends GetView<LocationController> {
 
             return Column(
               children: [
-                // Header (User Position) with Background Image
                 Container(
                   padding: const EdgeInsets.all(12.0),
-                  child: GestureDetector(
-                    onTap: () async {
-                      final lat = controller.userPosition.value!.latitude;
-                      final lng = controller.userPosition.value!.longitude;
+                  child: Stack(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          final lat = controller.userPosition.value!.latitude;
+                          final lng = controller.userPosition.value!.longitude;
 
-                      Uri googleMapsUrl =
-                          Uri.parse("https://www.google.com/maps?q=$lat,$lng");
+                          Uri googleMapsUrl = Uri.parse(
+                              "https://www.google.com/maps?q=$lat,$lng");
 
-                      try {
-                        // Open the user's location in Google Maps
-                        if (await canLaunchUrl(googleMapsUrl)) {
-                          await launchUrl(googleMapsUrl);
-                        } else {
-                          Get.snackbar(
-                            'Error',
-                            'Could not open Google Maps.',
-                            snackPosition: SnackPosition.BOTTOM,
-                          );
-                        }
-                      } catch (e) {
-                        print('$e');
-                      }
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 12.0),
-                      padding: const EdgeInsets.all(16.0),
-                      decoration: BoxDecoration(
-                        color: Colors.purple.shade300.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(12.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            blurRadius: 8.0,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.location_on,
-                                color: Colors.blue.shade800,
-                              ),
-                              const SizedBox(width: 8.0),
-                              Expanded(
-                                child: Text(
-                                  'Your Location: ${controller.userPosition.value!.latitude.toStringAsFixed(6)}, ${controller.userPosition.value!.longitude.toStringAsFixed(6)}',
-                                  style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
+                          try {
+                            if (await canLaunchUrl(googleMapsUrl)) {
+                              await launchUrl(googleMapsUrl);
+                            } else {
+                              Get.snackbar(
+                                'Error',
+                                'Could not open Google Maps.',
+                                snackPosition: SnackPosition.BOTTOM,
+                              );
+                            }
+                          } catch (e) {
+                            print('$e');
+                          }
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 12.0),
+                          padding: const EdgeInsets.all(16.0),
+                          decoration: BoxDecoration(
+                            color: Colors.purple.shade300.withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(12.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                blurRadius: 8.0,
+                                offset: const Offset(0, 4),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 8.0),
-                          Obx(() => Text(
-                                'Address: ${controller.userAddress.value}',
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.white70,
-                                ),
-                              )),
-                        ],
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    color: Colors.blue.shade800,
+                                  ),
+                                  const SizedBox(width: 8.0),
+                                  Expanded(
+                                    child: Text(
+                                      'Your Location: ${controller.userPosition.value!.latitude.toStringAsFixed(6)}, ${controller.userPosition.value!.longitude.toStringAsFixed(6)}',
+                                      style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8.0),
+                              Obx(() => Text(
+                                    'Address: ${controller.userAddress.value}',
+                                    style: const TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.white70,
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                      Positioned(
+                        top: 8.0,
+                        right: 8.0,
+                        child: IconButton(
+                          onPressed: () async {
+                            await controller.refreshLocation();
+                          },
+                          icon: const Icon(Icons.refresh),
+                          color: Colors.white,
+                          tooltip: 'Refresh Location',
+                          iconSize: 24.0,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-
-                // List of Nearby Cinemas
                 Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.all(12.0),
@@ -132,7 +144,6 @@ class LocationView extends GetView<LocationController> {
                           Uri googleMapsUrl = Uri.parse(
                               "https://www.google.com/maps?q=$lat,$lng");
 
-                          // Check if Google Maps can be opened
                           if (await canLaunchUrl(googleMapsUrl)) {
                             await launchUrl(googleMapsUrl);
                           } else {

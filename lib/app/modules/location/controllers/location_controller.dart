@@ -81,9 +81,13 @@ class LocationController extends GetxController {
   RxString userAddress = ''.obs; // To store the user's address or city
 
   @override
-  void onInit() {
-    super.onInit();
-    _determinePosition();
+  void onReady() {
+    super.onReady();
+    refreshLocation();
+  }
+
+  Future<void> refreshLocation() async {
+    await _determinePosition();
   }
 
   Future<void> _determinePosition() async {
