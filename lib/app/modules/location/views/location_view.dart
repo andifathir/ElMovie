@@ -64,7 +64,6 @@ class LocationView extends GetView<LocationController> {
                           );
                         }
                       } catch (e) {
-                        // Handle any exceptions that might occur
                         print('$e');
                       }
                     },
@@ -82,28 +81,42 @@ class LocationView extends GetView<LocationController> {
                           ),
                         ],
                       ),
-                      child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
-                            Icons.location_on,
-                            color: Colors.blue.shade800,
-                          ),
-                          const SizedBox(width: 8.0),
-                          Expanded(
-                            child: Text(
-                              'Your Location: ${controller.userPosition.value!.latitude.toStringAsFixed(6)}, ${controller.userPosition.value!.longitude.toStringAsFixed(6)}',
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.location_on,
+                                color: Colors.blue.shade800,
                               ),
-                            ),
+                              const SizedBox(width: 8.0),
+                              Expanded(
+                                child: Text(
+                                  'Your Location: ${controller.userPosition.value!.latitude.toStringAsFixed(6)}, ${controller.userPosition.value!.longitude.toStringAsFixed(6)}',
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
+                          const SizedBox(height: 8.0),
+                          Obx(() => Text(
+                                'Address: ${controller.userAddress.value}',
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.white70,
+                                ),
+                              )),
                         ],
                       ),
                     ),
                   ),
                 ),
+
                 // List of Nearby Cinemas
                 Expanded(
                   child: ListView.builder(
@@ -134,7 +147,7 @@ class LocationView extends GetView<LocationController> {
                           margin: const EdgeInsets.only(bottom: 12.0),
                           padding: const EdgeInsets.all(16.0),
                           decoration: BoxDecoration(
-                             color: Colors.white.withOpacity(0.2),
+                            color: Colors.white.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(12.0),
                             boxShadow: [
                               BoxShadow(
@@ -160,7 +173,7 @@ class LocationView extends GetView<LocationController> {
                                 cinema['address'],
                                 style: const TextStyle(
                                   fontSize: 14.0,
-                                   color: Color(0xFFE7E7E7),
+                                  color: Color(0xFFE7E7E7),
                                 ),
                               ),
                             ],

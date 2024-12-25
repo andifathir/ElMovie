@@ -119,16 +119,17 @@ class ReviewController extends GetxController {
     isConnected.value = result != ConnectivityResult.none;
     if (isConnected.value) {
       _syncLocalData();
-      Get.snackbar('Online', 'Local data synced to database.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    } else {
-      Get.snackbar('Offline', 'Internet connection lost.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white);
+      // Get.snackbar('Online', 'Local data synced to database.',
+      //     snackPosition: SnackPosition.BOTTOM,
+      //     backgroundColor: Colors.green,
+      //     colorText: Colors.white);
     }
+    // else {
+    //   Get.snackbar('Offline', 'Internet connection lost.',
+    //       snackPosition: SnackPosition.BOTTOM,
+    //       backgroundColor: Colors.red,
+    //       colorText: Colors.white);
+    // }
   }
 
   Future<void> _syncLocalData() async {

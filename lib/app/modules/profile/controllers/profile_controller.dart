@@ -109,16 +109,17 @@ class ProfileController extends GetxController {
   void _handleConnectivityChange(ConnectivityResult result) {
     isConnected.value = result != ConnectivityResult.none;
     if (isConnected.value) {
-      Get.snackbar('Online', 'Back online. Data synced successfully.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
-    } else {
-      Get.snackbar('Offline', 'Internet connection lost.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white);
+      // Get.snackbar('Online', 'Back online. Data synced successfully.',
+      //     snackPosition: SnackPosition.BOTTOM,
+      //     backgroundColor: Colors.green,
+      //     colorText: Colors.white);
     }
+    // else {
+    //   Get.snackbar('Offline', 'Internet connection lost.',
+    //       snackPosition: SnackPosition.BOTTOM,
+    //       backgroundColor: Colors.red,
+    //       colorText: Colors.white);
+    // }
   }
 
   Future<void> logout() async {

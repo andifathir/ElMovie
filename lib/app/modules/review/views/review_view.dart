@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -141,6 +142,7 @@ class ReviewView extends GetView<ReviewController> {
     final movieNameController = TextEditingController();
     final ratingController = TextEditingController();
     final reviewController = TextEditingController();
+    final player = AudioPlayer();
     File? selectedMedia;
 
     Get.dialog(
@@ -222,6 +224,7 @@ class ReviewView extends GetView<ReviewController> {
                 selectedMedia,
               );
               Get.back();
+              player.play(AssetSource('success.mp3'));
             },
             child: Text("Add"),
           ),
@@ -242,6 +245,7 @@ class ReviewView extends GetView<ReviewController> {
     final ratingController =
         TextEditingController(text: rating?.toStringAsFixed(1));
     final reviewController = TextEditingController(text: reviewText);
+    final player = AudioPlayer();
     File? selectedMedia = imagePath != null ? File(imagePath) : null;
 
     Get.dialog(
@@ -297,6 +301,7 @@ class ReviewView extends GetView<ReviewController> {
                 selectedMedia,
               );
               Get.back();
+              player.play(AssetSource('success.mp3'));
             },
             child: Text("Update"),
           ),

@@ -69,10 +69,10 @@ class CatatanController extends GetxController {
           .doc(uid)
           .collection('Catatan')
           .add(data);
-      Get.snackbar('Berhasil', 'Catatan berhasil dikirim ke database!',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Get.theme.primaryColor,
-          colorText: Get.theme.colorScheme.onPrimary);
+      // Get.snackbar('Berhasil', 'Catatan berhasil dikirim ke database!',
+      //     snackPosition: SnackPosition.BOTTOM,
+      //     backgroundColor: Get.theme.primaryColor,
+      //     colorText: Get.theme.colorScheme.onPrimary);
     } else {
       final List localData = box.read('localCatatan') ?? [];
       localData.add(data);
@@ -124,21 +124,6 @@ class CatatanController extends GetxController {
     isConnected.value = result != ConnectivityResult.none;
     if (isConnected.value) {
       _syncLocalData();
-      Get.snackbar(
-        'Online',
-        'Data lokal berhasil disinkronisasi ke database.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
-    } else {
-      Get.snackbar(
-        'Offline',
-        'Koneksi internet terputus.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
     }
   }
 

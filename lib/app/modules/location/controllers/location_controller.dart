@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart'; // Import for geocoding
 
 class LocationController extends GetxController {
   RxList<Map<String, dynamic>> cinemaLocations = <Map<String, dynamic>>[
@@ -72,10 +73,12 @@ class LocationController extends GetxController {
       "latitude": -6.225154,
       "longitude": 106.809881,
     },
+    // Add other cinemas here...
   ].obs;
 
   RxList<Map<String, dynamic>> nearbyCinemas = <Map<String, dynamic>>[].obs;
   Rx<Position?> userPosition = Rx<Position?>(null);
+  RxString userAddress = ''.obs; // To store the user's address or city
 
   @override
   void onInit() {
@@ -122,8 +125,46 @@ class LocationController extends GetxController {
       return;
     }
 
+    // Fetch the user's address
+    await _getAddressFromCoordinates();
+
     // Find nearby cinemas
     _findNearbyCinemas();
+  }
+
+  Future<void> _getAddressFromCoordinates() async {
+    if (userPosition.value == null) {
+      print('User position is null. Cannot fetch address.');
+      userAddress.value = 'Location not available';
+      return;
+    }
+
+    final latitude = userPosition.value!.latitude;
+    final longitude = userPosition.value!.longitude;
+
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latitude, longitude);
+
+      if (placemarks.isEmpty) {
+        print('No placemarks found for coordinates.');
+        userAddress.value = 'Address not found';
+      } else {
+        final Placemark place = placemarks.first;
+
+        // Safely access fields with null-checking
+        final locality = place.locality ?? 'Unknown locality';
+        final administrativeArea =
+            place.administrativeArea ?? 'Unknown administrative area';
+        final country = place.country ?? 'Unknown country';
+
+        userAddress.value = "$locality, $administrativeArea, $country";
+        print('Address: ${userAddress.value}');
+      }
+    } catch (e) {
+      print("Error fetching address: $e");
+      userAddress.value = 'Error fetching address';
+    }
   }
 
   void _findNearbyCinemas() {
