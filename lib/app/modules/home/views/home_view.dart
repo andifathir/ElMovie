@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ElMovie/app/modules/home/controllers/home_controller.dart';
 import 'package:ElMovie/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,8 @@ import '../../microphone/controllers/microphone_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
+
+  
 
   final int _selectedIndex = 0;
   final MicrophoneController microphoneController =
@@ -39,25 +43,22 @@ class HomeView extends GetView<HomeController> {
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
-                onTap: () {
-                  Get.to(Routes.PROFILE);
-                },
-                child: Consumer<ProfileProvider>(
-                  builder: (context, profileProvider, child) {
-                    return CircleAvatar(
-                      radius: 20,
-                      backgroundImage: profileProvider.profileImage != null
-                          ? FileImage(profileProvider.profileImage!)
+                child: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: controller.profileImage.value != null
+                      ? FileImage(controller.profileImage.value!)
+                      : (controller.profileData['imagePath'] != null &&
+                              controller
+                                  .profileData['imagePath'].isNotEmpty)
+                          ? FileImage(
+                              File(controller.profileData['imagePath']))
                           : null,
-                      child: profileProvider.profileImage == null
-                          ? const Icon(
-                              Icons.person,
-                              size: 14,
-                              color: Colors.white,
-                            )
-                          : null,
-                    );
-                  },
+                  child: controller.profileImage.value == null &&
+                          (controller.profileData['imagePath'] == null ||
+                              controller
+                                  .profileData['imagePath'].isEmpty)
+                      ? const Icon(Icons.person, size: 50, color: Colors.white)
+                      : null,
                 ),
               ),
             ),

@@ -48,7 +48,7 @@ class CatatanView extends GetView<CatatanController> {
                       child: AbsorbPointer(
                         child: TextField(
                           decoration: InputDecoration(
-                            hintText: 'Tanggal: $tanggal',
+                            hintText: 'Date: $tanggal',
                           ),
                         ),
                       ),
@@ -133,7 +133,7 @@ class CatatanView extends GetView<CatatanController> {
                       child: AbsorbPointer(
                         child: TextField(
                           decoration: InputDecoration(
-                            hintText: 'Tanggal: $selectedDate',
+                            hintText: 'Date: $selectedDate',
                           ),
                         ),
                       ),
@@ -175,9 +175,24 @@ class CatatanView extends GetView<CatatanController> {
         ),
         Scaffold(
           appBar: AppBar(
-            title: const Text('Watch List', style: TextStyle(color: Colors.white)),
+            title: const Text(
+              'Watch Lists Film',
+              style: TextStyle(
+                fontSize: 22, // Increased font size
+                fontWeight: FontWeight.bold, // Make the text bold
+                color: Colors.white,
+              ),
+            ),
             backgroundColor: Colors.transparent,
             elevation: 0,
+            actions: [
+              IconButton(
+                onPressed: () =>  showAddCatatanDialog(context),
+                icon: const Icon(Icons.add, color: Colors.white),
+                tooltip: 'Add Review', // Tooltip for better UX
+              ),
+              const SizedBox(width: 10), // Space between the icon and the edge
+            ],
           ),
           backgroundColor: Colors.transparent,
           body: Obx(() {
@@ -248,10 +263,6 @@ class CatatanView extends GetView<CatatanController> {
               },
             );
           }),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => showAddCatatanDialog(context),
-            child: const Icon(Icons.add),
-          ),
         ),
       ],
     );

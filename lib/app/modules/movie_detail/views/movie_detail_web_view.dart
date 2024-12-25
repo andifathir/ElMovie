@@ -18,6 +18,7 @@ class MovieDetailWebView extends GetView<MovieDetailController> {
         appBar: AppBar(
           title: const Text("WebView", style: TextStyle(color: Colors.white)),
           backgroundColor: Colors.black,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: WebViewWidget(
           controller: controller.webViewController(movie.imdbLink),
