@@ -166,11 +166,6 @@ class ProfileView extends GetView<ProfileController> {
                               fontSize: 16,
                             ),
                           )),
-                      const SizedBox(height: 50),
-                      _buildActionButton('Watchlist', () {
-                        Get.toNamed(
-                            '/CatatanView'); // Navigate to the Watchlist page
-                      }),
                       const SizedBox(height: 20),
                       _buildActionButton('Favorites', () {
                         Get.toNamed(
